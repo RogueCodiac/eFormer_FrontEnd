@@ -10,12 +10,34 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 import java.nio.charset.StandardCharsets;
 
-public class RequestsGateway {
+
+class RequestsGateway {
     private final static String urlBase = "http://localhost:8080/api/v1/";
 
     private static String token = null;
 
-    public static Object executePostRequest(
+    private static Object processResponse(HttpURLConnection connection) throws Exception {
+        var response = new StringBuilder();
+
+        try (var reader = new BufferedReader(
+                new InputStreamReader(connection.getInputStream(),
+                        StandardCharsets.UTF_8))
+        ) {
+            String responseLine;
+
+            while ((responseLine = reader.readLine()) != null) {
+                response.append(responseLine.trim());
+            }
+        }
+
+        try {
+            return new JSONObject(response.toString());
+        } catch (JSONException ignored) {
+            return new JSONArray(response.toString());
+        }
+    }
+
+    protected static Object executePostRequest(
             String target,
             Object body,
             String token
@@ -27,12 +49,12 @@ public class RequestsGateway {
 
             connection.setRequestMethod("POST");
             connection.setRequestProperty("Content-Type", "application/json");
-            connection.setRequestProperty("Accept","application/json");
+            connection.setRequestProperty("Accept", "application/json");
             connection.setDoInput(true);
             connection.setDoOutput(true);
 
             if (token != null) {
-                connection.setRequestProperty("Authorization", "Bearer " + token);
+                connection.setRequestProperty("Authorization", getToken());
             }
 
             if (body != null) {
@@ -42,26 +64,14 @@ public class RequestsGateway {
                 }
             }
 
-            var response = new StringBuilder();
-
-            try (var reader = new BufferedReader(
-                    new InputStreamReader(connection.getInputStream(),
-                            StandardCharsets.UTF_8))
-            ) {
-                String responseLine;
-
-                while ((responseLine = reader.readLine()) != null) {
-                    response.append(responseLine.trim());
-                }
-            }
-
-            return new JSONObject(response.toString());
+            return processResponse(connection);
         } catch (Exception e) {
+            System.out.println(e);
             return e;
         }
     }
 
-    public static Object executeGetRequest(
+    protected static Object executeGetRequest(
             String target,
             JSONObject params
     ) {
@@ -84,49 +94,57 @@ public class RequestsGateway {
             connection.setRequestProperty("Accept", "application/json");
             connection.setDoOutput(true);
 
-            var response = new StringBuilder();
-
-            try (var reader = new BufferedReader(
-                    new InputStreamReader(connection.getInputStream(),
-                            StandardCharsets.UTF_8))
-            ) {
-                String responseLine;
-
-                while ((responseLine = reader.readLine()) != null) {
-                    response.append(responseLine.trim());
-                }
-            }
-
-            try {
-                return new JSONObject(response.toString());
-            } catch (JSONException e) {
-                return new JSONArray(response.toString());
-            }
+            return processResponse(connection);
         } catch (Exception e) {
             return e;
         }
     }
 
-    public Object post(String target, JSONObject body) {
+    protected static Object post(String target, Object body) {
         return executePostRequest(target, body, token);
     }
 
-    public void authenticate(String username, String password) {
+    protected static void authenticate(String username, String password) {
         var body = new JSONObject();
 
         body.put("username", username);
         body.put("password", password);
 
         var response = (JSONObject) post("auth/authenticate", body);
-        token = (String) response.get("token");
+        setToken((String) response.get("token"));
     }
 
-    public void register(JSONObject body) {
+    protected static void register(JSONObject body) {
         var response = (JSONObject) post("auth/register", body);
-        token = (String) response.get("token");
+        setToken((String) response.get("token"));
     }
 
-    public void logout() {
+    protected static void logout() {
         token = null;
+    }
+
+    public static <T> void mapToObject(JSONObject props, T result) {
+        for (var prop: props.keySet()) {
+            try {
+                var value = props.get(prop);
+
+                /* Use reflection to call setters */
+                result.getClass().getDeclaredMethod(
+                        "set"
+                                + prop.substring(0, 1).toUpperCase()
+                                + prop.substring(1),
+                        value.getClass()
+                ).invoke(result, value);
+            } catch (Exception ignored) {
+            }
+        }
+    }
+
+    public static void setToken(String newToken) {
+        token = newToken;
+    }
+
+    public static String getToken() {
+        return token != null ? "Bearer " + token : token;
     }
 }
