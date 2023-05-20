@@ -1,5 +1,6 @@
 package eformer.front.eformer_frontend.model;
 
+import eformer.front.eformer_frontend.connectors.UsersConnector;
 import org.json.JSONObject;
 
 import java.time.LocalDateTime;

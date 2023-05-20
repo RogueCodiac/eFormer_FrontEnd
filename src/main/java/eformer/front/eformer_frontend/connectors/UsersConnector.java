@@ -1,5 +1,6 @@
 package eformer.front.eformer_frontend.connectors;
 
+import eformer.front.eformer_frontend.model.User;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
