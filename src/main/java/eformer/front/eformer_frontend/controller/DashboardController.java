@@ -16,7 +16,6 @@ import java.util.Objects;
 import java.util.ResourceBundle;
 import javafx.animation.Animation;
 import javafx.animation.FadeTransition;
-import javafx.animation.FillTransition;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.event.ActionEvent;
@@ -28,7 +27,6 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.Node;
 import javafx.scene.control.Label;
-import javafx.scene.image.Image;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.BorderPane;
@@ -117,7 +115,7 @@ public class DashboardController implements Initializable {
             home = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("/views/Home.fxml")));
             employees = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("/views/Employees.fxml")));
             inventory = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("/views/Inventory.fxml")));
-            sales = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("/views/SalesReports.fxml")));
+            sales = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("/views/Orders.fxml")));
             customers = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("/views/Customers.fxml")));
             // TODO clients
             //            meterReconciliation = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("/views/MeterReconciliation.fxml")));

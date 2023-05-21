@@ -18,26 +18,25 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane id="AnchorPane" fx:id="acContent" style="-fx-background-color: #EEEEEE;" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1">
+<AnchorPane id="AnchorPane" fx:id="acContent" prefHeight="800.0" prefWidth="1280.0" style="-fx-background-color: #EEEEEE;" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1">
     <children>
-        <BorderPane fx:id="bpRoot" AnchorPane.bottomAnchor="40.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="0.0">
+        <BorderPane fx:id="bpRoot" AnchorPane.bottomAnchor="10.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="0.0">
             <bottom>
                 <HBox fillHeight="false" />
             </bottom>
             <center>
                 <SplitPane fx:id="splitPane" dividerPositions="0.7">
                     <items>
-                        <TableView fx:id="tblSales" styleClass="tableAlignment" tableMenuButtonVisible="true">
+                        <TableView fx:id="tblOrders" styleClass="tableAlignment" tableMenuButtonVisible="true">
                             <columns>
                                 <TableColumn fx:id="tblClmDate" prefWidth="127.0" text="Date" />
-                                <TableColumn fx:id="tblClmRecieptId" prefWidth="145.0" text="Order #" />
+                                <TableColumn fx:id="tblClmOrderId" prefWidth="145.0" text="Order #" />
                                 <TableColumn fx:id="tblClmEmployee" prefWidth="127.0" text="Seller" />
-                        <TableColumn fx:id="tblClmAction1" prefWidth="106.0" text="Customer" />
+                        <TableColumn fx:id="tblClmCustomer" prefWidth="106.0" text="Customer" />
                                 <TableColumn fx:id="tblClmNoOfItems" prefWidth="145.0" text="No. of Items" />
                         <TableColumn fx:id="tblClmAmountPaid" prefWidth="145.0" text="Amount Paid" />
-                        <TableColumn fx:id="tblClmBalance" prefWidth="145.0" text="Expected Profit" />
+                        <TableColumn fx:id="tblClmProfit" prefWidth="145.0" text="Expected Profit" />
                                 <TableColumn fx:id="tblClmTotal" prefWidth="145.0" text="Total" />
-                                <TableColumn fx:id="tblClmAction" prefWidth="106.0" text="Action" />
                             </columns>
                      <columnResizePolicy>
                         <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
@@ -58,20 +57,12 @@
                                  </padding>
                               </HBox>
                               <Separator />
-                              <HBox alignment="CENTER_LEFT" spacing="10.0">
-                                 <children>
-                                    <Label style="-fx-font-size: 14;" text="Date: " />
-                                    <Label fx:id="lblSaleItemDate" style="-fx-font-size: 14;" text="25/03/18" />
-                                 </children>
-                                 <padding>
-                                    <Insets bottom="5.0" left="20.0" top="5.0" />
-                                 </padding>
-                              </HBox>
                               <TableView fx:id="tblInventory" tableMenuButtonVisible="true">
                                  <columns>
                                     <TableColumn fx:id="tblClmItemId" prefWidth="127.0" text="Item #" />
+                                    <TableColumn fx:id="tblClmName" prefWidth="127.0" text="Item Name" />
                                     <TableColumn fx:id="tblClmQuantity" prefWidth="118.0" text="Qty" />
-                                    <TableColumn fx:id="tblClmUnitPrice" prefWidth="190.0" text="Unit Price" />
+                                    <TableColumn fx:id="tblClmUnitPrice" editable="false" prefWidth="190.0" text="Unit Price" />
                                  </columns>
                                  <columnResizePolicy>
                                     <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
@@ -128,10 +119,21 @@
                               <HBox alignment="TOP_RIGHT" layoutX="10.0" layoutY="486.0">
                                  <children>
 <!--                                     <Button fx:id="btnReprintReceipt" mnemonicParsing="false" onAction="#btnReprintReceiptOnAction" prefHeight="50.0" prefWidth="150.0" styleClass="btnTender" text="Reprint">-->
-                                    <Button fx:id="btnReprintReceipt" mnemonicParsing="false" prefHeight="50.0" prefWidth="150.0" styleClass="btnTender" text="Reprint">
+                                    <Button fx:id="btnCancel" mnemonicParsing="false" prefHeight="50.0" prefWidth="192.0" styleClass="btnTender" text="Cancel">
                                        <font>
                                           <Font size="20.0" />
                                        </font>
+                                       <HBox.margin>
+                                          <Insets right="10.0" />
+                                       </HBox.margin>
+                                    </Button>
+                                    <Button fx:id="btnUpdate" layoutX="385.0" layoutY="20.0" mnemonicParsing="false" prefHeight="50.0" prefWidth="180.0" styleClass="btnTender" text="Update">
+                                       <font>
+                                          <Font size="20.0" />
+                                       </font>
+                                       <HBox.margin>
+                                          <Insets right="10.0" />
+                                       </HBox.margin>
                                     </Button>
                                  </children>
                                  <padding>
@@ -150,23 +152,32 @@
             <top>
                 <VBox spacing="5.0" BorderPane.alignment="CENTER">
                     <children>
-                        <Label style="-fx-font-size: 20; -fx-font-weight: bold;" text="Sales" />
+                        <Label style="-fx-font-size: 20; -fx-font-weight: bold;" text="Orders" />
                         <Separator prefHeight="4.0" prefWidth="1213.0" />
                         <HBox spacing="10.0">
                             <children>
                         <HBox alignment="CENTER_LEFT" spacing="10.0">
                            <children>
-                              <Label text="Export To:" />
-                              <Button mnemonicParsing="false" prefWidth="102.0" style="-fx-content-display: left;" styleClass="btnTender" text="Excel">
+                              <Button fx:id="btnRefresh" mnemonicParsing="false" prefWidth="102.0" style="-fx-content-display: left;" styleClass="btnTender" text="Refresh">
                                  <graphic>
-                                    <FontAwesomeIconView size="18" />
+                                    <FontAwesomeIconView glyphName="REFRESH" size="18" />
                                  </graphic>
                               </Button>
                            </children>
                         </HBox>
                         <HBox alignment="CENTER_RIGHT" spacing="5.0" HBox.hgrow="ALWAYS">
                            <children>
-                              <Button fx:id="btnShowRange1" mnemonicParsing="false" styleClass="btnTender" text="Refresh">
+                              <Button fx:id="btnCreate" mnemonicParsing="false" styleClass="btnTender" text="Create New">
+                                 <HBox.margin>
+                                    <Insets right="10.0" />
+                                 </HBox.margin>
+                              </Button>
+                              <Button fx:id="btnCancelOrder" layoutX="454.0" layoutY="11.0" mnemonicParsing="false" styleClass="btnTender" text="Cancel">
+                                 <HBox.margin>
+                                    <Insets right="10.0" />
+                                 </HBox.margin>
+                              </Button>
+                              <Button fx:id="btnConfirmOrder" layoutX="1073.0" layoutY="11.0" mnemonicParsing="false" styleClass="btnTender" text="Confirm">
                                  <HBox.margin>
                                     <Insets right="10.0" />
                                  </HBox.margin>
