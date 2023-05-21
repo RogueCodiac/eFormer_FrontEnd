@@ -1,31 +1,23 @@
 package eformer.front.eformer_frontend.controller;
 
-import eformer.front.eformer_frontend.connector.ItemsConnector;
 import eformer.front.eformer_frontend.connector.UsersConnector;
-import eformer.front.eformer_frontend.model.Item;
 import eformer.front.eformer_frontend.model.User;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.control.Button;
-import javafx.scene.control.ComboBox;
-import javafx.scene.control.PasswordField;
-import javafx.scene.control.SplitPane;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
-import org.json.JSONObject;
 
 import java.net.URL;
 import java.util.Objects;
 import java.util.ResourceBundle;
 
-public class EmployeesController implements Initializable {
+public class CustomersController implements Initializable {
+
     @FXML
     private AnchorPane acContent;
 
@@ -63,13 +55,13 @@ public class EmployeesController implements Initializable {
     private TableColumn<?, ?> tblClmIEmployeeNumber;
 
     @FXML
-    private TableColumn<?, ?> tblClmRole;
+    private TableColumn<?, ?> tblClmJoin;
 
     @FXML
     private TableColumn<?, ?> tblClmUsername;
 
     @FXML
-    private TableView<User> tblEmployees;
+    private TableView<User> tblCustomers;
 
     @FXML
     private TextField tfEmail;
@@ -88,26 +80,26 @@ public class EmployeesController implements Initializable {
     private User currentSelectedUser = null;
 
     public void activateTableFunctionalities() {
-        /* Once a user is selected display its properties */
-        tblEmployees.getSelectionModel().selectedItemProperty().addListener((observable, oldSelected, selected) -> {
-            currentSelectedUser = selected;
-
-            if (selected != null) {
-                setFields(selected);
-            }
-        });
-
         /* Search users by name */
-        tblEmployees.getItems()
+        tblCustomers.getItems()
                 .stream()
                 .filter(item -> item != null &&
                         tfSearch.getLength() != 0 &&
                         item.getUsername().contains(tfSearch.getText()))
                 .findAny()
                 .ifPresent(item -> {
-                    tblEmployees.getSelectionModel().select(item);
-                    tblEmployees.scrollTo(item);
-                });
+                    tblCustomers.getSelectionModel().select(item);
+                    tblCustomers.scrollTo(item);
+        });
+
+        /* Once a user is selected display its properties */
+        tblCustomers.getSelectionModel().selectedItemProperty().addListener((observable, oldSelected, selected) -> {
+            currentSelectedUser = selected;
+
+            if (selected != null) {
+                setFields(selected);
+            }
+        });
     }
 
     public void setFields(User user) {
@@ -130,18 +122,17 @@ public class EmployeesController implements Initializable {
 
     public void refreshTable() {
         users.clear();
-        users.addAll(Objects.requireNonNull(UsersConnector.getEmployees()));
+        users.addAll(Objects.requireNonNull(UsersConnector.getCustomers()));
         clearFields();
-        tblEmployees.setItems(users);
+        tblCustomers.setItems(users);
     }
 
     public User fetchUserFromFields() {
+        Integer adLevel = Objects.requireNonNull(UsersConnector.roles()).indexOf(cbRole.getValue()) - 1;
         String username = tfUsername.getText();
         String fullName = tfFullName.getText();
         String password = pfPassword.getText();
         String email = tfEmail.getText();
-        Integer adLevel = Objects.requireNonNull(UsersConnector.roles())
-                .indexOf(cbRole.getValue()) - 1;
 
         return new User(username, fullName, email, password, adLevel);
     }
@@ -163,7 +154,7 @@ public class EmployeesController implements Initializable {
             var response = UsersConnector.update(fieldsUser);
 
             if (response) {
-                if (fieldsUser.isEmployee()) {
+                if (fieldsUser.isCustomer()) {
                     users.set(users.indexOf(currentSelectedUser), fieldsUser);
                     currentSelectedUser = fieldsUser;
                 } else {
@@ -176,7 +167,7 @@ public class EmployeesController implements Initializable {
             currentSelectedUser = user;
         }
 
-        tblEmployees.setItems(users);
+        tblCustomers.setItems(users);
     }
 
     /**
@@ -193,7 +184,7 @@ public class EmployeesController implements Initializable {
         tblClmEmail.setCellValueFactory(new PropertyValueFactory<>("email"));
         tblClmFullName.setCellValueFactory(new PropertyValueFactory<>("fullName"));
         tblClmUsername.setCellValueFactory(new PropertyValueFactory<>("username"));
-        tblClmRole.setCellValueFactory(new PropertyValueFactory<>("role"));
+        tblClmJoin.setCellValueFactory(new PropertyValueFactory<>("createTime"));
         tblClmIEmployeeNumber.setCellValueFactory(new PropertyValueFactory<>("userId"));
 
         cbRole.setItems(FXCollections.observableArrayList(Objects.requireNonNull(UsersConnector.roles())));

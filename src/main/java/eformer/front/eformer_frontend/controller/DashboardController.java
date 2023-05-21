@@ -46,7 +46,7 @@ public class DashboardController implements Initializable {
     private Button btnHome;
     @FXML
     private StackPane holderPane;
-    AnchorPane home, inventory, employees, sales, reports, widgets, controls, stockSummaryAmbient, meterReconciliation, settings;
+    AnchorPane home, inventory, employees, sales, reports, customers, widgets, controls, stockSummaryAmbient, meterReconciliation, settings;
     @FXML
     private AnchorPane acMain;
     @FXML
@@ -118,6 +118,7 @@ public class DashboardController implements Initializable {
             employees = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("/views/Employees.fxml")));
             inventory = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("/views/Inventory.fxml")));
             sales = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("/views/SalesReports.fxml")));
+            customers = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("/views/Customers.fxml")));
             // TODO clients
             //            meterReconciliation = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("/views/MeterReconciliation.fxml")));
 //            controls = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("/views/Controls.fxml")));
@@ -222,6 +223,7 @@ public class DashboardController implements Initializable {
 
     @FXML
     private void btnSwitchCustomers(ActionEvent event) {
+        setNode(customers);
     }
 
     @FXML
