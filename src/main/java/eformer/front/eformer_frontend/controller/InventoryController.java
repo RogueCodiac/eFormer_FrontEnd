@@ -1,6 +1,5 @@
 package eformer.front.eformer_frontend.controller;
 
-import com.jfoenix.controls.JFXTextArea;
 import eformer.front.eformer_frontend.connector.ItemsConnector;
 import eformer.front.eformer_frontend.model.Item;
 import javafx.collections.FXCollections;
@@ -73,7 +72,7 @@ public class InventoryController implements Initializable {
     private TextField tfQuantity;
 
     @FXML
-    private JFXTextArea tfSearch;
+    private TextField tfSearch;
 
     @FXML
     private TextField tfUnitPrice;

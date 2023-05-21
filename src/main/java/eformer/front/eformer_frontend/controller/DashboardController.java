@@ -118,9 +118,8 @@ public class DashboardController implements Initializable {
             employees = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("/views/Employees.fxml")));
             inventory = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("/views/Inventory.fxml")));
             sales = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("/views/SalesReports.fxml")));
-            reports = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("/views/Reports.fxml")));
-            settings = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("/views/Settings.fxml")));
-//            meterReconciliation = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("/views/MeterReconciliation.fxml")));
+            // TODO clients
+            //            meterReconciliation = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("/views/MeterReconciliation.fxml")));
 //            controls = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("/views/Controls.fxml")));
 
             setNode(home);

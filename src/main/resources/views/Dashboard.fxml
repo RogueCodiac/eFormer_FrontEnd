@@ -66,11 +66,6 @@
                                 <FontAwesomeIconView fill="WHITE" glyphName="USERS" size="30" />
                             </graphic>
                         </Button>
-                        <Button fx:id="btnSettings" contentDisplay="TOP" mnemonicParsing="false" onAction="#btnSettingsOnClick" prefWidth="150.0" styleClass="buttonMenu" text="Settings">
-                            <graphic>
-                                <FontAwesomeIconView fill="WHITE" glyphName="COGS" size="30" />
-                            </graphic>
-                        </Button>
                     </VBox>
                 </AnchorPane>
             </left>
