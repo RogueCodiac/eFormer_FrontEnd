@@ -2,8 +2,11 @@ package eformer.front.eformer_frontend;
 
 import eformer.front.eformer_frontend.connector.RequestsGateway;
 import javafx.application.Application;
+import javafx.event.EventHandler;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyEvent;
 import javafx.stage.Stage;
 
 import java.io.IOException;
@@ -18,9 +21,16 @@ public class Main extends Application {
 
         FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("/views/Dashboard.fxml"));
         Scene scene = new Scene(fxmlLoader.load());
-        stage.setTitle("Eformer");
+
+        scene.addEventFilter(KeyEvent.KEY_PRESSED, ke -> {
+            if (ke.getCode() == KeyCode.ESCAPE) {
+                System.exit(0);
+            }
+        });
+
+        stage.setTitle("eFormer");
         stage.setFullScreen(true);
-        stage.setResizable(false);
+        stage.setResizable(true);
         stage.setFullScreenExitHint("");
         stage.setScene(scene);
         stage.show();

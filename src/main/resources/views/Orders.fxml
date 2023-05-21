@@ -57,7 +57,7 @@
                                  </padding>
                               </HBox>
                               <Separator />
-                              <TableView fx:id="tblInventory" tableMenuButtonVisible="true">
+                              <TableView fx:id="tblItems" tableMenuButtonVisible="true">
                                  <columns>
                                     <TableColumn fx:id="tblClmItemId" prefWidth="127.0" text="Item #" />
                                     <TableColumn fx:id="tblClmName" prefWidth="127.0" text="Item Name" />

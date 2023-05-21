@@ -98,7 +98,7 @@ public class OrdersController {
     private TableColumn<?, ?> tblClmUnitPrice;
 
     @FXML
-    private TableView<?> tblInventory;
+    private TableView<?> tblItems;
 
     @FXML
     private TableView<?> tblOrders;
