@@ -119,4 +119,20 @@ public class UsersConnector extends RequestsGateway {
             return null;
         }
     }
+
+    public static List<String> roles() {
+        try {
+            var response = get(
+                    getUrl("roles"),
+                    null
+            );
+
+            System.out.println(response);
+            System.out.println(response.getClass());
+
+            return null;
+        } catch (Exception ignored) {
+            return null;
+        }
+    }
 }

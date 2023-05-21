@@ -33,7 +33,11 @@ public class RequestsGateway {
         try {
             return new JSONObject(response.toString());
         } catch (JSONException ignored) {
-            return new JSONArray(response.toString());
+            try {
+                return new JSONArray(response.toString());
+            } catch (JSONException ignored2) {
+                return response.toString();
+            }
         }
     }
 
@@ -70,7 +74,7 @@ public class RequestsGateway {
         }
     }
 
-    protected static Object executeGetRequest(
+    protected static Object get(
             String target,
             JSONObject params
     ) {

@@ -5,7 +5,6 @@ import eformer.front.eformer_frontend.model.User;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
-import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
@@ -140,8 +139,8 @@ public class OrdersConnector extends RequestsGateway {
 
     public static Double getTotalSales() {
         try {
-            return ((BigDecimal) post(getUrl("getTotalSales"),
-                    null)).doubleValue();
+            return Double.parseDouble((String) post(getUrl("getTotalSales"),
+                    null));
         } catch (Exception ignored) {
             return null;
         }
@@ -169,8 +168,8 @@ public class OrdersConnector extends RequestsGateway {
 
     public static Double getTotalActualSales() {
         try {
-            return ((BigDecimal) post(getUrl("getTotalActualSales"),
-                    null)).doubleValue();
+            return Double.parseDouble((String) post(getUrl("getTotalActualSales"),
+                    null));
         } catch (Exception ignored) {
             return null;
         }
@@ -178,8 +177,8 @@ public class OrdersConnector extends RequestsGateway {
 
     public static Double getTotalProfit() {
         try {
-            return ((BigDecimal) post(getUrl("getTotalProfit"),
-                    null)).doubleValue();
+            return Double.parseDouble((String) post(getUrl("getTotalProfit"),
+                    null));
         } catch (Exception ignored) {
             return null;
         }

@@ -1,5 +1,10 @@
 package eformer.front.eformer_frontend.controller;
 
+import eformer.front.eformer_frontend.connector.UsersConnector;
+import eformer.front.eformer_frontend.model.Item;
+import eformer.front.eformer_frontend.model.User;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
@@ -9,10 +14,12 @@ import javafx.scene.control.SplitPane;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
+import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
 
 import java.net.URL;
+import java.util.Objects;
 import java.util.ResourceBundle;
 
 public class EmployeesController implements Initializable {
@@ -36,7 +43,7 @@ public class EmployeesController implements Initializable {
     private Button btnUpdate;
 
     @FXML
-    private ComboBox<?> cbRole;
+    private ComboBox<String> cbRole;
 
     @FXML
     private PasswordField pfPassword;
@@ -60,7 +67,7 @@ public class EmployeesController implements Initializable {
     private TableColumn<?, ?> tblClmUsername;
 
     @FXML
-    private TableView<?> tblEmployees;
+    private TableView<User> tblEmployees;
 
     @FXML
     private TextField tfEmail;
@@ -74,6 +81,57 @@ public class EmployeesController implements Initializable {
     @FXML
     private TextField tfUsername;
 
+    private final ObservableList<User> users = FXCollections.observableArrayList();
+
+    private User currentSelectedUser = null;
+
+    public void activateTableFunctionalities() {
+        /* Once an item is selected display the its properties */
+        tblEmployees.getSelectionModel().selectedItemProperty().addListener((observable, oldSelected, selected) -> {
+            currentSelectedUser = selected;
+
+            if (selected != null) {
+                setFields(selected);
+            }
+        });
+
+        /* Search item by name */
+        tblEmployees.getItems()
+                .stream()
+                .filter(item -> item != null &&
+                        tfSearch.getLength() != 0 &&
+                        item.getUsername().contains(tfSearch.getText()))
+                .findAny()
+                .ifPresent(item -> {
+                    tblEmployees.getSelectionModel().select(item);
+                    tblEmployees.scrollTo(item);
+                });
+    }
+
+    public void setFields(User user) {
+        tfEmail.setText(user.getEmail());
+        tfFullName.setText(user.getFullName());
+        tfUsername.setText(user.getUsername());
+        cbRole.setValue(user.getRole());
+        pfPassword.setText(user.getPassword());
+    }
+
+    public void clearFields() {
+        tfSearch.clear();
+        tfEmail.clear();
+        tfFullName.clear();
+        tfUsername.clear();
+        cbRole.setValue(null);
+        pfPassword.clear();
+    }
+
+    public void refreshTable() {
+        users.clear();
+        users.addAll(Objects.requireNonNull(UsersConnector.getEmployees()));
+        clearFields();
+        tblEmployees.setItems(users);
+    }
+
     /**
      * Called to initialize a controller after its root element has been
      * completely processed.
@@ -85,6 +143,12 @@ public class EmployeesController implements Initializable {
      */
     @Override
     public void initialize(URL location, ResourceBundle resources) {
+        tblClmEmail.setCellValueFactory(new PropertyValueFactory<>("email"));
+        tblClmFullName.setCellValueFactory(new PropertyValueFactory<>("fullName"));
+        tblClmUsername.setCellValueFactory(new PropertyValueFactory<>("username"));
+        tblClmRole.setCellValueFactory(new PropertyValueFactory<>("role"));
+        tblClmIEmployeeNumber.setCellValueFactory(new PropertyValueFactory<>("userId"));
+
 
     }
 }

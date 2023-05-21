@@ -17,7 +17,7 @@ public class ItemsConnector extends RequestsGateway {
 
             params.put("id", id);
 
-            var response = (JSONObject) executeGetRequest(
+            var response = (JSONObject) get(
                     getUrl("getById"),
                     params
             );
@@ -48,7 +48,7 @@ public class ItemsConnector extends RequestsGateway {
 
             params.put("name", name);
 
-            var response = (JSONObject) executeGetRequest(
+            var response = (JSONObject) get(
                     getUrl("getByName"),
                     params
             );
@@ -61,7 +61,7 @@ public class ItemsConnector extends RequestsGateway {
 
     public static List<Item> getAll() {
         try {
-            var response = executeGetRequest(
+            var response = get(
                     getUrl("getAll"),
                     null
             );

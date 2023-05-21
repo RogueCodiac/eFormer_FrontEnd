@@ -1,6 +1,8 @@
 package eformer.front.eformer_frontend;
 
+import eformer.front.eformer_frontend.connector.OrdersConnector;
 import eformer.front.eformer_frontend.connector.RequestsGateway;
+import eformer.front.eformer_frontend.connector.UsersConnector;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
@@ -14,6 +16,11 @@ public class HelloApplication extends Application {
     public void start(Stage stage) throws IOException {
         RequestsGateway.authenticate("yolo", "ysd112233");
 
+        var temp = OrdersConnector.getTotalProfit();
+
+        System.out.println(temp);
+        UsersConnector.roles();
+        System.exit(0);
         /* Patches the illegalAccess issues of jfoenix */
         org.burningwave.core.assembler.StaticComponentContainer.Modules.exportAllToAll();
 
