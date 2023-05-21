@@ -1,5 +1,6 @@
 package eformer.front.eformer_frontend.connector;
 
+import eformer.front.eformer_frontend.model.User;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -15,6 +16,8 @@ public class RequestsGateway {
     private final static String urlBase = "http://localhost:8080/api/v1/";
 
     private static String token = null;
+
+    private static User current = null;
 
     private static Object processResponse(HttpURLConnection connection) throws Exception {
         var response = new StringBuilder();
@@ -115,11 +118,13 @@ public class RequestsGateway {
 
         var response = (JSONObject) post("auth/authenticate", body);
         setToken((String) response.get("token"));
+        current = UsersConnector.getByUsername(username);
     }
 
     public static void register(JSONObject body) {
         var response = (JSONObject) post("auth/register", body);
         setToken((String) response.get("token"));
+        current = UsersConnector.getByUsername(body.getString("username"));
     }
 
     protected static void logout() {

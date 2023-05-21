@@ -64,6 +64,19 @@ public class UsersConnector extends RequestsGateway {
         }
     }
 
+    public static User getByUsername(String username) {
+        try {
+            var response = (JSONObject) post(
+                    getUrl("getByUsername"),
+                    username
+            );
+
+            return new User(response);
+        } catch (Exception ignored) {
+            return null;
+        }
+    }
+
     public static User create(JSONObject user) {
         return create(new User(user));
     }
@@ -120,17 +133,12 @@ public class UsersConnector extends RequestsGateway {
         }
     }
 
-    public static List<String> roles() {
+    public static JSONArray roles() {
         try {
-            var response = get(
+            return (JSONArray) get(
                     getUrl("roles"),
                     null
             );
-
-            System.out.println(response);
-            System.out.println(response.getClass());
-
-            return null;
         } catch (Exception ignored) {
             return null;
         }
