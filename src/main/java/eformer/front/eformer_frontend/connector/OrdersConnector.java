@@ -1,5 +1,6 @@
 package eformer.front.eformer_frontend.connector;
 
+import eformer.front.eformer_frontend.model.Item;
 import eformer.front.eformer_frontend.model.Order;
 import eformer.front.eformer_frontend.model.User;
 import org.json.JSONArray;
@@ -226,6 +227,16 @@ public class OrdersConnector extends RequestsGateway {
             var response = (JSONObject) post(getUrl("create"), body);
 
             return new Order(response);
+        } catch (Exception ignored) {
+            return null;
+        }
+    }
+
+    public static List<Item> getItems(Integer orderId) {
+        try {
+            var response = post(getUrl("getOrderItems"), orderId);
+
+            return ItemsConnector.proccessItemsList(response);
         } catch (Exception ignored) {
             return null;
         }
