@@ -16,11 +16,6 @@ public class HelloApplication extends Application {
     public void start(Stage stage) throws IOException {
         RequestsGateway.authenticate("yolo", "ysd112233");
 
-        var temp = OrdersConnector.getTotalProfit();
-
-        System.out.println(temp);
-        UsersConnector.roles();
-        System.exit(0);
         /* Patches the illegalAccess issues of jfoenix */
         org.burningwave.core.assembler.StaticComponentContainer.Modules.exportAllToAll();
 

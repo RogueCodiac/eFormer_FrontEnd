@@ -133,10 +133,15 @@ public class InventoryController implements Initializable {
     }
 
     public Item fetchItemFromFields() {
-        var cost = Double.parseDouble(tfCostPrice.getText().substring(1));
-        var quantity = Integer.parseInt(tfQuantity.getText());
+        var costStr = '$' + tfCostPrice.getText();
+        Double cost = Double.parseDouble(costStr.substring(costStr.lastIndexOf('$') + 1));
+
+        Integer quantity = Integer.parseInt(tfQuantity.getText());
         var name = tfItemName.getText();
-        var unitPrice = Double.parseDouble(tfUnitPrice.getText().substring(1));
+
+        var unitPriceStr = '$' + tfUnitPrice.getText();
+        Double unitPrice = Double.parseDouble(unitPriceStr.substring(unitPriceStr.lastIndexOf('$') + 1));
+
         var description = taDescription.getText();
 
         return new Item(name, description, quantity, unitPrice, cost);
@@ -150,6 +155,8 @@ public class InventoryController implements Initializable {
         var fieldsItem = fetchItemFromFields();
 
         if (currentSelectedItem != null) {
+            fieldsItem.setItemId(currentSelectedItem.getItemId());
+
             var item = ItemsConnector.update(fieldsItem);
 
             items.set(items.indexOf(currentSelectedItem), item);
