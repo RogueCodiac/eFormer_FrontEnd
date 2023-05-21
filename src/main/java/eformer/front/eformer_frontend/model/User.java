@@ -1,9 +1,11 @@
 package eformer.front.eformer_frontend.model;
 
 import eformer.front.eformer_frontend.connector.UsersConnector;
+import org.json.JSONArray;
 import org.json.JSONObject;
 
 import java.time.LocalDateTime;
+import java.util.Objects;
 
 public class User {
     private Integer userId;
@@ -36,12 +38,21 @@ public class User {
         UsersConnector.mapToObject(json, this);
     }
 
+    public void setAuthorities(JSONArray arr) {
+        /* Used by mapper */
+        setRole(arr.getJSONObject(0).getString("authority"));
+    }
+
     public void setRole(String role) {
         this.role = role;
     }
 
     public String getRole() {
-        return role;
+        if (role.length() > 0) {
+            return role;
+        }
+
+        return Objects.requireNonNull(UsersConnector.roles()).get(getAdLevel() + 1);
     }
 
     public Integer getUserId() {

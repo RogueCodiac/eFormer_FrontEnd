@@ -82,7 +82,7 @@ public class InventoryController implements Initializable {
     private Item currentSelectedItem = null;
 
     public void activateTableFunctionalities() {
-        /* Once an item is selected display the its properties */
+        /* Once an item is selected display its properties */
         tblInventory.getSelectionModel().selectedItemProperty().addListener((observable, oldSelected, selected) -> {
             currentSelectedItem = selected;
 
@@ -130,6 +130,7 @@ public class InventoryController implements Initializable {
         tfUnitPrice.clear();
         taDescription.clear();
         tfSearch.clear();
+        currentSelectedItem = null;
     }
 
     public Item fetchItemFromFields() {
@@ -164,6 +165,7 @@ public class InventoryController implements Initializable {
         } else {
             var item = ItemsConnector.create(fieldsItem);
             items.add(item);
+            currentSelectedItem = item;
         }
 
         tblInventory.setItems(items);

@@ -1,10 +1,12 @@
 package eformer.front.eformer_frontend.controller;
 
+import eformer.front.eformer_frontend.connector.ItemsConnector;
 import eformer.front.eformer_frontend.connector.UsersConnector;
 import eformer.front.eformer_frontend.model.Item;
 import eformer.front.eformer_frontend.model.User;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
@@ -17,6 +19,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
+import org.json.JSONObject;
 
 import java.net.URL;
 import java.util.Objects;
@@ -86,7 +89,7 @@ public class EmployeesController implements Initializable {
     private User currentSelectedUser = null;
 
     public void activateTableFunctionalities() {
-        /* Once an item is selected display the its properties */
+        /* Once a user is selected display its properties */
         tblEmployees.getSelectionModel().selectedItemProperty().addListener((observable, oldSelected, selected) -> {
             currentSelectedUser = selected;
 
@@ -95,7 +98,7 @@ public class EmployeesController implements Initializable {
             }
         });
 
-        /* Search item by name */
+        /* Search users by name */
         tblEmployees.getItems()
                 .stream()
                 .filter(item -> item != null &&
@@ -123,12 +126,59 @@ public class EmployeesController implements Initializable {
         tfUsername.clear();
         cbRole.setValue(null);
         pfPassword.clear();
+        currentSelectedUser = null;
     }
 
     public void refreshTable() {
         users.clear();
         users.addAll(Objects.requireNonNull(UsersConnector.getEmployees()));
         clearFields();
+        tblEmployees.setItems(users);
+    }
+
+    public User fetchUserFromFields() {
+        String username = tfUsername.getText();
+        String fullName = tfFullName.getText();
+        String password = pfPassword.getText();
+        String email = tfEmail.getText();
+        Integer adLevel = Objects.requireNonNull(UsersConnector.roles())
+                .indexOf(cbRole.getValue()) - 1;
+
+        return new User(username, fullName, email, password, adLevel);
+    }
+
+    public void refresh(ActionEvent ignored) {
+        refreshTable();
+    }
+
+    public void btnCancelAction(ActionEvent ignored) {
+        setFields(currentSelectedUser);
+    }
+
+    public void btnUpdateAction(ActionEvent ignored) {
+        var fieldsUser = fetchUserFromFields();
+
+        if (currentSelectedUser != null) {
+            fieldsUser.setUserId(currentSelectedUser.getUserId());
+
+            var response = UsersConnector.update(fieldsUser);
+
+            System.out.println(response);
+
+            if (response) {
+                if (fieldsUser.isEmployee()) {
+                    users.set(users.indexOf(currentSelectedUser), fieldsUser);
+                    currentSelectedUser = fieldsUser;
+                } else {
+                    refreshTable();
+                }
+            }
+        } else {
+            var user = UsersConnector.create(fieldsUser);
+            users.add(user);
+            currentSelectedUser = user;
+        }
+
         tblEmployees.setItems(users);
     }
 
@@ -149,7 +199,9 @@ public class EmployeesController implements Initializable {
         tblClmRole.setCellValueFactory(new PropertyValueFactory<>("role"));
         tblClmIEmployeeNumber.setCellValueFactory(new PropertyValueFactory<>("userId"));
 
-
+        cbRole.setItems(FXCollections.observableArrayList(Objects.requireNonNull(UsersConnector.roles())));
+        refreshTable();
+        activateTableFunctionalities();
     }
 }
 

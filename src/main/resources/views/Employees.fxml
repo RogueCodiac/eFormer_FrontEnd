@@ -73,7 +73,6 @@
                                                             <HBox alignment="CENTER_RIGHT" spacing="10.0">
                                                                <children>
                                                                   <Label text="Role:" />
-<!--                                                                  <ComboBox fx:id="cbSeurityGroup" onAction="#cbSecurityGroupOnAction" prefWidth="200.0" styleClass="btnTender" />-->
                                                                    <ComboBox fx:id="cbRole" prefHeight="25.0" prefWidth="178.0" styleClass="btnTender" />
                                                                   <Label style="-fx-text-fill: red;" text="*">
                                                                      <font>
@@ -139,10 +138,8 @@
                                     </TitledPane>
                                     <HBox alignment="CENTER_RIGHT" prefHeight="49.0" prefWidth="262.0" spacing="10.0">
                                        <children>
-<!--                                          <Button fx:id="btnUpdate" mnemonicParsing="false" onAction="#btnUpdateOnAction" styleClass="btnTender" text="Update" />-->
-<!--                                          <Button fx:id="btnCancel" mnemonicParsing="false" onAction="#btnCancelOnAction" styleClass="btnTender" text="Cancel" />-->
-                                           <Button fx:id="btnUpdate" mnemonicParsing="false" styleClass="btnTender" text="Update" />
-                                           <Button fx:id="btnCancel" mnemonicParsing="false" styleClass="btnTender" text="Cancel" />
+                                          <Button fx:id="btnUpdate" mnemonicParsing="false" onAction="#btnUpdateAction" styleClass="btnTender" text="Update" />
+                                          <Button fx:id="btnCancel" mnemonicParsing="false" onAction="#btnCancelAction" styleClass="btnTender" text="Cancel" />
                                        </children>
                                        <VBox.margin>
                                           <Insets right="10.0" />
@@ -167,13 +164,13 @@
                         <Separator prefHeight="4.0" prefWidth="1213.0" />
                         <HBox alignment="CENTER_RIGHT" prefWidth="743.0" spacing="10.0">
                             <children>
-<!--                                <TextField fx:id="tfSearch" onKeyReleased="#tfSearchOnKeyReleased" prefHeight="33.0" prefWidth="405.0" promptText="Search Employee ..." />-->
-<!--                                <Button fx:id="btnRefresh" graphicTextGap="8.0" mnemonicParsing="false" onAction="#btnRefreshOnAction" prefWidth="100.0" style="-fx-content-display: left;" styleClass="btnTender" text="Refresh">-->
-                                <TextField fx:id="tfSearch" prefHeight="33.0" prefWidth="528.0" promptText="Search Employee ..." />
-                                <Button fx:id="btnRefresh" graphicTextGap="8.0" mnemonicParsing="false" prefHeight="33.0" prefWidth="120.0" style="-fx-content-display: left;" styleClass="btnTender" text="Refresh">
+                                <TextField fx:id="tfSearch" prefHeight="33.0" prefWidth="405.0" promptText="Search Employee ..." />
+                                <Button fx:id="btnRefresh" graphicTextGap="8.0" mnemonicParsing="false" onAction="#refresh" prefWidth="100.0" style="-fx-content-display: left;" styleClass="btnTender" text="Refresh">
+<!--                                <TextField fx:id="tfSearch" prefHeight="33.0" prefWidth="528.0" promptText="Search Employee ..." />-->
+<!--                                <Button fx:id="btnRefresh" graphicTextGap="8.0" mnemonicParsing="false" prefHeight="33.0" prefWidth="120.0" style="-fx-content-display: left;" styleClass="btnTender" text="Refresh">-->
 
                                 <graphic>
-                              <FontAwesomeIconView size="15" />
+                              <FontAwesomeIconView glyphName="REFRESH" size="15" />
                            </graphic></Button>
                         <Region prefHeight="33.0" prefWidth="657.0" />
                             </children>
