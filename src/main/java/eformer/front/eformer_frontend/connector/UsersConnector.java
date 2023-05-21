@@ -81,11 +81,24 @@ public class UsersConnector extends RequestsGateway {
         }
     }
 
-    public static List<User> getByAdLevel(Integer adLevel) {
+    public static List<User> getCustomers() {
         try {
             var response = post(
-                    getUrl("getByAdLevel"),
-                    adLevel
+                    getUrl("getCustomers"),
+                    null
+            );
+
+            return proccessUsersList(response);
+        } catch (Exception ignored) {
+            return null;
+        }
+    }
+
+    public static List<User> getEmployees() {
+        try {
+            var response = post(
+                    getUrl("getEmployees"),
+                    null
             );
 
             return proccessUsersList(response);
