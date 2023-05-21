@@ -124,6 +124,25 @@ public class OrdersController implements Initializable {
 
     private ObservableList<Order> orders = FXCollections.observableArrayList();
 
+    private Order currentSelectedOrder = null;
+
+    public void activateTableFunctionalities() {
+        /* Once an order is selected display its items */
+        tblOrders.getSelectionModel().selectedItemProperty().addListener((observable, oldSelected, selected) -> {
+            currentSelectedOrder = selected;
+
+            if (selected != null) {
+                setItems(selected);
+            }
+        });
+    }
+
+    private void refreshOrderItems() {
+        if (currentSelectedOrder != null) {
+            setItems(currentSelectedOrder);
+        }
+    }
+
     private void refreshTables() {
         items.clear();
         orders.clear();
@@ -134,7 +153,16 @@ public class OrdersController implements Initializable {
     }
 
     private void clearFields() {
+        currentSelectedOrder = null;
+        lblTotal.setText("$0.00");
+        lblAmountPaid.setText("$0.00");
+    }
 
+    public void setItems(Order order) {
+        items.clear();
+        items.addAll(Objects.requireNonNull(OrdersConnector.getItems(order.getOrderId())));
+        lblTotal.setText(String.format("$%.2f", order.getTotal()));
+        lblAmountPaid.setText(String.format("%.2f", order.getAmountPaid()));
     }
 
     /**
@@ -164,6 +192,7 @@ public class OrdersController implements Initializable {
         tblClmOrderStatus.setCellValueFactory(new PropertyValueFactory<>("status"));
 
         refreshTables();
+        activateTableFunctionalities();
     }
 }
 

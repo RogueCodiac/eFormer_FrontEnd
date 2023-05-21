@@ -185,9 +185,14 @@ public class OrdersConnector extends RequestsGateway {
         }
     }
 
-    public static boolean confirm(Integer orderId) {
+    public static boolean confirm(Integer orderId, Double amountPaid) {
         try {
-            post(getUrl("confirm"), orderId);
+            var body = new JSONObject();
+
+            body.put("orderId", orderId);
+            body.put("amountPaid", amountPaid);
+
+            post(getUrl("confirm"), body);
             return true;
         } catch (Exception ignored) {
             return false;
