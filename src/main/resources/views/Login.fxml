@@ -14,7 +14,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import org.controlsfx.control.ToggleSwitch?>
 
-<AnchorPane id="AnchorPane" prefHeight="450.0" prefWidth="700.0" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.LoginController">
+<AnchorPane id="AnchorPane" prefHeight="450.0" prefWidth="700.0" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1">
     <children>
         <HBox alignment="CENTER" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
             <children>
@@ -45,7 +45,7 @@
                                       <children>
                                             <TextField id="textField1" fx:id="tfUsername" prefHeight="50.0" prefWidth="415.0" promptText="username" />
                                             <TextField id="textField1" fx:id="tfPassword" prefHeight="50.0" prefWidth="415.0" promptText="password" />
-                                      <Button id="button1" fx:id="btnLogin" defaultButton="true" onAction="#processLogin" prefHeight="40.0" prefWidth="415.0" text="Login">
+                                      <Button id="button1" fx:id="btnLogin" defaultButton="true" prefHeight="40.0" prefWidth="415.0" text="Login">
                                  <graphic>
                                     <FontAwesomeIconView fill="#ff9900" glyphName="ARROW_RIGHT" size="15.0" />
                                  </graphic></Button>
@@ -69,7 +69,7 @@
                 </VBox>
             </children>
         </HBox>
-      <Button fx:id="btnClose" mnemonicParsing="false" onAction="#btnCloseOnAction" prefHeight="34.0" prefWidth="32.0" stylesheets="@../local-css/btnOnText.css" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+      <Button fx:id="btnClose" mnemonicParsing="false" prefHeight="34.0" prefWidth="32.0" stylesheets="@../local-css/btnOnText.css" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
     </children>
     <stylesheets>
         <URL value="@../local-css/Login.css" />
