@@ -72,6 +72,10 @@ public class Order {
         this.creationDate = creationDate;
     }
 
+    public void setCreationDate(String creationDate) {
+        setCreationDate(LocalDateTime.parse(creationDate));
+    }
+
     public Integer getNumberOfItems() {
         return numberOfItems;
     }
@@ -81,7 +85,15 @@ public class Order {
     }
 
     public Double getAmountPaid() {
-        return amountPaid;
+        return amountPaid == null ? 0 : amountPaid;
+    }
+
+    public String getCustomerUsername() {
+        return getCustomer().getUsername();
+    }
+
+    public String getEmployeeUsername() {
+        return getEmployee().getUsername();
     }
 
     public void setAmountPaid(Double amountPaid) {
@@ -134,6 +146,12 @@ public class Order {
 
     public void setEmployee(JSONObject employee) {
         setEmployee(new User(employee));
+    }
+
+    public String getDate() {
+        var temp = getCreationDate().toString().split("T");
+
+        return temp[0] + "\n at " + temp[1];
     }
 
     @Override
