@@ -71,6 +71,23 @@
                               </TableView>
                               <HBox alignment="TOP_RIGHT" spacing="20.0">
                                  <children>
+                                    <VBox>
+                                       <children>
+                                          <Button fx:id="btnAddItem" onAction="#" mnemonicParsing="false" prefHeight="23.0" prefWidth="192.0" styleClass="btnTender" text="Add Item">
+                                             <font>
+                                                <Font size="20.0" />
+                                             </font>
+                                             <VBox.margin>
+                                                <Insets bottom="10.0" />
+                                             </VBox.margin>
+                                          </Button>
+                                          <Button fx:id="btnRemoveItem" mnemonicParsing="false" prefHeight="23.0" prefWidth="192.0" styleClass="btnTender" text="Remove selected">
+                                             <font>
+                                                <Font size="20.0" />
+                                             </font>
+                                          </Button>
+                                       </children>
+                                    </VBox>
                                     <VBox alignment="TOP_RIGHT" spacing="2.0">
                                        <children>
                                           <Label text="Total" wrapText="true">
@@ -120,7 +137,7 @@
                               <HBox alignment="TOP_RIGHT" layoutX="10.0" layoutY="486.0">
                                  <children>
 <!--                                     <Button fx:id="btnReprintReceipt" mnemonicParsing="false" onAction="#btnReprintReceiptOnAction" prefHeight="50.0" prefWidth="150.0" styleClass="btnTender" text="Reprint">-->
-                                    <Button fx:id="btnCancel" mnemonicParsing="false" prefHeight="50.0" prefWidth="192.0" styleClass="btnTender" text="Cancel">
+                                    <Button fx:id="btnCancel" mnemonicParsing="false" prefHeight="50.0" prefWidth="171.0" styleClass="btnTender" text="Cancel">
                                        <font>
                                           <Font size="20.0" />
                                        </font>
