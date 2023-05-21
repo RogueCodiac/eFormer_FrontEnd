@@ -19,6 +19,8 @@ import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
 import javafx.util.Callback;
 import javafx.util.Pair;
+import org.json.JSONArray;
+import org.json.JSONObject;
 
 import java.net.URL;
 import java.util.Objects;
@@ -131,11 +133,13 @@ public class OrdersController implements Initializable {
     @FXML
     private Button btnRemoveItem;
 
-    private ObservableList<Item> items = FXCollections.observableArrayList();
+    private final ObservableList<Item> items = FXCollections.observableArrayList();
 
-    private ObservableList<Order> orders = FXCollections.observableArrayList();
+    private final ObservableList<Order> orders = FXCollections.observableArrayList();
 
     private Order currentSelectedOrder = null;
+
+    private Item currentSelectedItem = null;
 
     public void activateTableFunctionalities() {
         /* Once an order is selected display its items */
@@ -146,11 +150,15 @@ public class OrdersController implements Initializable {
                 setItems(selected);
             }
         });
+
+        tblItems.getSelectionModel().selectedItemProperty().addListener((observable, oldSelected, selected) -> {
+            currentSelectedItem = selected;
+        });
     }
 
-    public Optional<Pair<Item, Integer>> getNewItem() {
+    public Optional<Item> getNewItem() {
         // Create the custom dialog.
-        Dialog<Pair<Item, Integer>> dialog = new Dialog<>();
+        Dialog<Item> dialog = new Dialog<>();
         dialog.setTitle("New Item");
         dialog.setHeaderText("Add item");
 
@@ -234,7 +242,10 @@ public class OrdersController implements Initializable {
 
         dialog.setResultConverter(dialogButton -> {
             if (dialogButton == loginButtonType) {
-                return new Pair<>(cbItemName.getValue(), cbQuantity.getValue());
+                var result = cbItemName.getValue();
+                result.setRequestedQuantity(cbQuantity.getValue());
+
+                return result;
             }
 
             return null;
@@ -252,6 +263,10 @@ public class OrdersController implements Initializable {
         alert.showAndWait();
     }
 
+    public void refresh(ActionEvent ignored) {
+        refreshTables();
+    }
+
     public void btnAddItemAction(ActionEvent ignored) {
         if (currentSelectedOrder == null) {
             displayWarning("No order selected", "Please select an order & try again");
@@ -259,6 +274,88 @@ public class OrdersController implements Initializable {
         }
 
         var item = getNewItem();
+
+        if (item.isPresent()) {
+            items.add(item.get());
+            tblItems.setItems(items);
+            changeTotalToItems();
+        }
+    }
+
+    public void btnRemoveItemAction(ActionEvent ignored) {
+        if (currentSelectedItem == null) {
+            displayWarning("No item selected", "Please select an item & try again");
+            return;
+        }
+
+        items.remove(currentSelectedItem);
+        currentSelectedOrder = null;
+        changeTotalToItems();
+    }
+
+    public void btnCancelOrderAction(ActionEvent ignored) {
+        if (currentSelectedOrder == null) {
+            displayWarning("No order selected", "Please select an order & try again");
+            return;
+        }
+
+        OrdersConnector.cancel(currentSelectedOrder.getOrderId());
+        refreshTables();
+    }
+
+    public void btnConfirmOrderAction(ActionEvent ignored) {
+        if (currentSelectedOrder == null) {
+            displayWarning("No order selected", "Please select an order & try again");
+            return;
+        }
+
+        TextInputDialog dialog = new TextInputDialog(currentSelectedOrder.getTotal().toString());
+        dialog.setTitle("Paid");
+        dialog.setHeaderText("Order payment");
+        dialog.setContentText("Please enter the total paid:");
+
+        // Traditional way to get the response value.
+        Optional<String> result = dialog.showAndWait();
+
+        if (result.isPresent()) {
+            try {
+                var amount = Double.parseDouble(result.get());
+                OrdersConnector.confirm(currentSelectedOrder.getOrderId(), amount);
+                refreshTables();
+            } catch (Exception ignored2) {
+                displayWarning("An error occured", "Enter a valid amount");
+            }
+        }
+    }
+
+    public void btnCancelAction(ActionEvent ignored) {
+        if (currentSelectedOrder == null) {
+            displayWarning("No order selected", "Please select an order & try again");
+            return;
+        }
+
+        refreshOrderItems();
+        currentSelectedItem = null;
+    }
+
+    public void btnUpdateAction(ActionEvent ignored) {
+        if (currentSelectedOrder == null) {
+            displayWarning("No order selected", "Please select an order & try again");
+            return;
+        }
+
+        OrdersConnector.update(currentSelectedOrder.getOrderId(), new JSONObject(items));
+        orders.set(orders.indexOf(currentSelectedOrder), currentSelectedOrder);
+    }
+
+    public void changeTotalToItems() {
+        var total = 0.0;
+
+        for (var item: items) {
+            total += item.getRequestedQuantity() * item.getUnitPrice();
+        }
+
+        lblTotal.setText(String.format("$%.2f", total));
     }
 
     private void refreshOrderItems() {
@@ -278,6 +375,7 @@ public class OrdersController implements Initializable {
 
     private void clearFields() {
         currentSelectedOrder = null;
+        currentSelectedItem = null;
         lblTotal.setText("$0.00");
         lblAmountPaid.setText("$0.00");
     }

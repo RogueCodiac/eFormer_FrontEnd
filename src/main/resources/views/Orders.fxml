@@ -81,7 +81,7 @@
                                                 <Insets bottom="10.0" />
                                              </VBox.margin>
                                           </Button>
-                                          <Button fx:id="btnRemoveItem" mnemonicParsing="false" prefHeight="23.0" prefWidth="192.0" styleClass="btnTender" text="Remove selected">
+                                          <Button fx:id="btnRemoveItem" onAction="#btnRemoveItemAction" mnemonicParsing="false" prefHeight="23.0" prefWidth="192.0" styleClass="btnTender" text="Remove selected">
                                              <font>
                                                 <Font size="20.0" />
                                              </font>
@@ -137,7 +137,7 @@
                               <HBox alignment="TOP_RIGHT" layoutX="10.0" layoutY="486.0">
                                  <children>
 <!--                                     <Button fx:id="btnReprintReceipt" mnemonicParsing="false" onAction="#btnReprintReceiptOnAction" prefHeight="50.0" prefWidth="150.0" styleClass="btnTender" text="Reprint">-->
-                                    <Button fx:id="btnCancel" mnemonicParsing="false" prefHeight="50.0" prefWidth="171.0" styleClass="btnTender" text="Cancel">
+                                    <Button fx:id="btnCancel" onAction="#btnCancelAction" mnemonicParsing="false" prefHeight="50.0" prefWidth="171.0" styleClass="btnTender" text="Cancel">
                                        <font>
                                           <Font size="20.0" />
                                        </font>
@@ -145,7 +145,7 @@
                                           <Insets right="10.0" />
                                        </HBox.margin>
                                     </Button>
-                                    <Button fx:id="btnUpdate" layoutX="385.0" layoutY="20.0" mnemonicParsing="false" prefHeight="50.0" prefWidth="180.0" styleClass="btnTender" text="Update">
+                                    <Button fx:id="btnUpdate" onAction="#btnUpdateAction" layoutX="385.0" layoutY="20.0" mnemonicParsing="false" prefHeight="50.0" prefWidth="180.0" styleClass="btnTender" text="Update">
                                        <font>
                                           <Font size="20.0" />
                                        </font>
@@ -176,7 +176,7 @@
                             <children>
                         <HBox alignment="CENTER_LEFT" spacing="10.0">
                            <children>
-                              <Button fx:id="btnRefresh" mnemonicParsing="false" prefWidth="102.0" style="-fx-content-display: left;" styleClass="btnTender" text="Refresh">
+                              <Button fx:id="btnRefresh" onAction="#refresh" mnemonicParsing="false" prefWidth="102.0" style="-fx-content-display: left;" styleClass="btnTender" text="Refresh">
                                  <graphic>
                                     <FontAwesomeIconView glyphName="REFRESH" size="18" />
                                  </graphic>
@@ -190,12 +190,12 @@
                                     <Insets right="10.0" />
                                  </HBox.margin>
                               </Button>
-                              <Button fx:id="btnCancelOrder" layoutX="454.0" layoutY="11.0" mnemonicParsing="false" styleClass="btnTender" text="Cancel">
+                              <Button fx:id="btnCancelOrder" onAction="#btnCancelOrderAction" layoutX="454.0" layoutY="11.0" mnemonicParsing="false" styleClass="btnTender" text="Cancel">
                                  <HBox.margin>
                                     <Insets right="10.0" />
                                  </HBox.margin>
                               </Button>
-                              <Button fx:id="btnConfirmOrder" layoutX="1073.0" layoutY="11.0" mnemonicParsing="false" styleClass="btnTender" text="Confirm">
+                              <Button fx:id="btnConfirmOrder" onAction="#btnConfirmOrderAction" layoutX="1073.0" layoutY="11.0" mnemonicParsing="false" styleClass="btnTender" text="Confirm">
                                  <HBox.margin>
                                     <Insets right="10.0" />
                                  </HBox.margin>

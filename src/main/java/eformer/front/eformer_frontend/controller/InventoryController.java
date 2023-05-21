@@ -103,15 +103,6 @@ public class InventoryController implements Initializable {
     }
 
     public void refresh(ActionEvent ignored) {
-
-        TextInputDialog dialog = new TextInputDialog("");
-        dialog.setTitle("Text Input Dialog");
-        dialog.setHeaderText("Look, a Text Input Dialog");
-        dialog.setContentText("Please enter your name:");
-        // Traditional way to get the response value.
-        Optional<String> result = dialog.showAndWait();
-        System.out.println(result);
-
         refreshTable();
     }
 
