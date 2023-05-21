@@ -164,8 +164,8 @@
                         <Separator prefHeight="4.0" prefWidth="1213.0" />
                         <HBox alignment="CENTER_RIGHT" prefWidth="743.0" spacing="10.0">
                             <children>
-                                <TextField fx:id="tfSearch" prefHeight="33.0" prefWidth="405.0" promptText="Search Employee ..." />
-                                <Button fx:id="btnRefresh" graphicTextGap="8.0" mnemonicParsing="false" onAction="#refresh" prefWidth="100.0" style="-fx-content-display: left;" styleClass="btnTender" text="Refresh">
+                                <TextField fx:id="tfSearch" prefHeight="33.0" prefWidth="528.0" promptText="Search Employee ..." />
+                                <Button fx:id="btnRefresh" graphicTextGap="8.0" mnemonicParsing="false" onAction="#refresh" prefWidth="120.0" style="-fx-content-display: left;" styleClass="btnTender" text="Refresh">
 <!--                                <TextField fx:id="tfSearch" prefHeight="33.0" prefWidth="528.0" promptText="Search Employee ..." />-->
 <!--                                <Button fx:id="btnRefresh" graphicTextGap="8.0" mnemonicParsing="false" prefHeight="33.0" prefWidth="120.0" style="-fx-content-display: left;" styleClass="btnTender" text="Refresh">-->
 

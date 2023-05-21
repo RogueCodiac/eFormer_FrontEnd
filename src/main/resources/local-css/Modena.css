@@ -300,7 +300,7 @@ is being used to size a border should also be in pixels.
      */
     -fx-mark-color: ladder(
         -fx-color,
-        white 30%,
+        black 30%,
         derive(-fx-color,-63%) 31%
         );
 
@@ -309,7 +309,7 @@ is being used to size a border should also be in pixels.
     -fx-mark-highlight-color: ladder(
         -fx-color,
         derive(-fx-color,80%) 60%,
-        white 70%
+        black 70%
         );
 
     /* Background for items in list like things such as menus, lists, trees,
@@ -1185,7 +1185,7 @@ is being used to size a border should also be in pixels.
     -fx-padding: 0.083333em; /* 1px */
 }
 .progress-indicator > .determinate-indicator > .tick {
-    -fx-background-color: white;
+    -fx-background-color: black;
     -fx-background-insets: 0;
     -fx-padding: 0.666667em; /* 8 */
     -fx-shape: "M-0.25,6.083c0.843-0.758,4.583,4.833,5.75,4.833S14.5-1.5,15.917-0.917c1.292,0.532-8.75,17.083-10.5,17.083C3,16.167-1.083,6.833-0.25,6.083z";
@@ -1260,7 +1260,7 @@ is being used to size a border should also be in pixels.
 }
 .text-input:focused {
     -fx-highlight-fill: -fx-accent;
-    -fx-highlight-text-fill: white;
+    -fx-highlight-text-fill: black;
     -fx-background-color:
         -fx-focus-color,
         -fx-control-inner-background,
@@ -1990,7 +1990,7 @@ is being used to size a border should also be in pixels.
 
 .custom-color-dialog > .color-rect-pane #color-rect-indicator {
     -fx-background-color: null;
-    -fx-border-color: white;
+    -fx-border-color: black;
     -fx-border-radius: 0.4166667em;
     -fx-translate-x: -0.4166667em;
     -fx-translate-y: -0.4166667em;
@@ -2008,7 +2008,7 @@ is being used to size a border should also be in pixels.
 
 .custom-color-dialog > .color-rect-pane > .color-bar > #color-bar-indicator {
     -fx-border-radius: 0.333333em;
-    -fx-border-color: white;
+    -fx-border-color: black;
     -fx-effect: dropshadow(three-pass-box, black, 2, 0.0, 0, 1);
     -fx-pref-width: 2em;
     -fx-pref-height: 0.833333em;
@@ -2222,7 +2222,7 @@ is being used to size a border should also be in pixels.
     -fx-text-fill: black;
 }
 .cell:focused:selected > .choice-box > .open-button > .arrow {
-    -fx-background-color: -fx-mark-highlight-color, white;
+    -fx-background-color: -fx-mark-highlight-color, black;
 }
 
 /*******************************************************************************
@@ -2479,7 +2479,7 @@ is being used to size a border should also be in pixels.
 /* This is shown when the table has no rows and/or no columns. */
 .table-view .empty-table,
 .tree-table-view .empty-table {
-    -fx-background-color: white;
+    -fx-background-color: black;
     -fx-font-size: 1.166667em; /* 14pt - 2 more than the default font */
 }
 
@@ -2686,18 +2686,18 @@ is being used to size a border should also be in pixels.
     -fx-shape: "M5,0 L10,8 L0,8 Z";
 }
 .default-color5.chart-symbol { /* hollow circle */
-    -fx-background-color: CHART_COLOR_6, white;
+    -fx-background-color: CHART_COLOR_6, black;
     -fx-background-insets: 0, 2;
     -fx-background-radius: 5px;
     -fx-padding: 5px;
 }
 .default-color6.chart-symbol { /* hollow square */
-    -fx-background-color: CHART_COLOR_7, white;
+    -fx-background-color: CHART_COLOR_7, black;
     -fx-background-insets: 0, 2;
     -fx-background-radius: 0;
 }
 .default-color7.chart-symbol { /* hollow diamond */
-    -fx-background-color: CHART_COLOR_8, white;
+    -fx-background-color: CHART_COLOR_8, black;
     -fx-background-radius: 0;
     -fx-background-insets: 0, 2.5;
     -fx-padding: 7px 5px 7px 5px;
@@ -2711,7 +2711,7 @@ is being used to size a border should also be in pixels.
  ******************************************************************************/
 
 .chart-line-symbol {
-    -fx-background-color: CHART_COLOR_1, white;
+    -fx-background-color: CHART_COLOR_1, black;
     -fx-background-insets: 0, 2;
     -fx-background-radius: 5px;
     -fx-padding: 5px;
@@ -2720,14 +2720,14 @@ is being used to size a border should also be in pixels.
     -fx-stroke: CHART_COLOR_1;
     -fx-stroke-width: 3px;
 }
-.default-color0.chart-line-symbol { -fx-background-color: CHART_COLOR_1, white; }
-.default-color1.chart-line-symbol { -fx-background-color: CHART_COLOR_2, white; }
-.default-color2.chart-line-symbol { -fx-background-color: CHART_COLOR_3, white; }
-.default-color3.chart-line-symbol { -fx-background-color: CHART_COLOR_4, white; }
-.default-color4.chart-line-symbol { -fx-background-color: CHART_COLOR_5, white; }
-.default-color5.chart-line-symbol { -fx-background-color: CHART_COLOR_6, white; }
-.default-color6.chart-line-symbol { -fx-background-color: CHART_COLOR_7, white; }
-.default-color7.chart-line-symbol { -fx-background-color: CHART_COLOR_8, white; }
+.default-color0.chart-line-symbol { -fx-background-color: CHART_COLOR_1, black; }
+.default-color1.chart-line-symbol { -fx-background-color: CHART_COLOR_2, black; }
+.default-color2.chart-line-symbol { -fx-background-color: CHART_COLOR_3, black; }
+.default-color3.chart-line-symbol { -fx-background-color: CHART_COLOR_4, black; }
+.default-color4.chart-line-symbol { -fx-background-color: CHART_COLOR_5, black; }
+.default-color5.chart-line-symbol { -fx-background-color: CHART_COLOR_6, black; }
+.default-color6.chart-line-symbol { -fx-background-color: CHART_COLOR_7, black; }
+.default-color7.chart-line-symbol { -fx-background-color: CHART_COLOR_8, black; }
 .default-color0.chart-series-line { -fx-stroke: CHART_COLOR_1; }
 .default-color1.chart-series-line { -fx-stroke: CHART_COLOR_2; }
 .default-color2.chart-series-line { -fx-stroke: CHART_COLOR_3; }
@@ -2744,19 +2744,19 @@ is being used to size a border should also be in pixels.
  ******************************************************************************/
 
 .chart-area-symbol {
-    -fx-background-color: CHART_COLOR_1, white;
+    -fx-background-color: CHART_COLOR_1, black;
     -fx-background-insets: 0, 1;
     -fx-background-radius: 4px; /* makes sure this remains circular */
     -fx-padding: 3px;
 }
-.default-color0.chart-area-symbol { -fx-background-color: CHART_COLOR_1, white; }
-.default-color1.chart-area-symbol { -fx-background-color: CHART_COLOR_2, white; }
-.default-color2.chart-area-symbol { -fx-background-color: CHART_COLOR_3, white; }
-.default-color3.chart-area-symbol { -fx-background-color: CHART_COLOR_4, white; }
-.default-color4.chart-area-symbol { -fx-background-color: CHART_COLOR_5, white; }
-.default-color5.chart-area-symbol { -fx-background-color: CHART_COLOR_6, white; }
-.default-color6.chart-area-symbol { -fx-background-color: CHART_COLOR_7, white; }
-.default-color7.chart-area-symbol { -fx-background-color: CHART_COLOR_8, white; }
+.default-color0.chart-area-symbol { -fx-background-color: CHART_COLOR_1, black; }
+.default-color1.chart-area-symbol { -fx-background-color: CHART_COLOR_2, black; }
+.default-color2.chart-area-symbol { -fx-background-color: CHART_COLOR_3, black; }
+.default-color3.chart-area-symbol { -fx-background-color: CHART_COLOR_4, black; }
+.default-color4.chart-area-symbol { -fx-background-color: CHART_COLOR_5, black; }
+.default-color5.chart-area-symbol { -fx-background-color: CHART_COLOR_6, black; }
+.default-color6.chart-area-symbol { -fx-background-color: CHART_COLOR_7, black; }
+.default-color7.chart-area-symbol { -fx-background-color: CHART_COLOR_8, black; }
 .chart-series-area-line {
     -fx-stroke: CHART_COLOR_1;
     -fx-stroke-width: 1px;
@@ -2884,7 +2884,7 @@ is being used to size a border should also be in pixels.
 .default-color7.chart-pie { -fx-pie-color: CHART_COLOR_8; }
 .negative.chart-pie {
     -fx-pie-color: transparent;
-    -fx-background-color: white;
+    -fx-background-color: black;
 }
 .pie-legend-symbol.chart-pie {
     -fx-background-radius: 8px;
@@ -3496,13 +3496,13 @@ is being used to size a border should also be in pixels.
         -fx-background-color: #EA5444;
         -fx-border-color: #212121;
         -fx-border-width: 0px 0px 3px 0px;
-        -fx-text-fill: white;
+        -fx-text-fill: black;
     }
     .toggle-button:selected{
         -fx-background-color: #959595;
         -fx-border-color: #D7D7D7;
         -fx-border-width: 0px 0px 3px 0px;
-        -fx-text-fill: white;
+        -fx-text-fill: black;
     }*/
 #btnClearSelected{
     -fx-font-size: 10px;

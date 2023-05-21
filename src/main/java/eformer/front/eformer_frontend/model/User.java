@@ -55,6 +55,10 @@ public class User {
         return Objects.requireNonNull(UsersConnector.roles()).get(getAdLevel() + 1);
     }
 
+    public String getJoinDate() {
+        return getCreateTime().toString().split("T")[0];
+    }
+
     public Integer getUserId() {
         return userId;
     }

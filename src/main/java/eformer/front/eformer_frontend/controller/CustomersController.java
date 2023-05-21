@@ -184,7 +184,7 @@ public class CustomersController implements Initializable {
         tblClmEmail.setCellValueFactory(new PropertyValueFactory<>("email"));
         tblClmFullName.setCellValueFactory(new PropertyValueFactory<>("fullName"));
         tblClmUsername.setCellValueFactory(new PropertyValueFactory<>("username"));
-        tblClmJoin.setCellValueFactory(new PropertyValueFactory<>("createTime"));
+        tblClmJoin.setCellValueFactory(new PropertyValueFactory<>("joinDate"));
         tblClmIEmployeeNumber.setCellValueFactory(new PropertyValueFactory<>("userId"));
 
         cbRole.setItems(FXCollections.observableArrayList(Objects.requireNonNull(UsersConnector.roles())));
