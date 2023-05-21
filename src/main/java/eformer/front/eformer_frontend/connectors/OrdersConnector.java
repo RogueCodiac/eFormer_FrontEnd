@@ -176,6 +176,15 @@ public class OrdersConnector extends RequestsGateway {
         }
     }
 
+    public static Double getTotalProfit() {
+        try {
+            return ((BigDecimal) post(getUrl("getTotalProfit"),
+                    null)).doubleValue();
+        } catch (Exception ignored) {
+            return null;
+        }
+    }
+
     public static boolean confirm(Integer orderId) {
         try {
             post(getUrl("confirm"), orderId);

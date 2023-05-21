@@ -20,6 +20,8 @@ public class User {
 
     private LocalDateTime createTime;
 
+    private String role;
+
     public User(String username, String fullName, String email,
                 String password, Integer adLevel) {
         setUsername(username);
@@ -27,10 +29,19 @@ public class User {
         setEmail(email);
         setPassword(password);
         setAdLevel(adLevel);
+        setRole("");
     }
 
     public User(JSONObject json) {
         UsersConnector.mapToObject(json, this);
+    }
+
+    public void setRole(String role) {
+        this.role = role;
+    }
+
+    public String getRole() {
+        return role;
     }
 
     public Integer getUserId() {
@@ -91,16 +102,6 @@ public class User {
 
     public void setCreateTime(String createTime) {
         setCreateTime(LocalDateTime.parse(createTime));
-    }
-
-    public String getRole() {
-        return switch (getAdLevel()) {
-            case 2 -> "Manager";
-            case 1 -> "Employee";
-            case 0 -> "Customer";
-            case -1 -> "Guest";
-            default -> "Banned";
-        };
     }
 
     public boolean isCustomer() {

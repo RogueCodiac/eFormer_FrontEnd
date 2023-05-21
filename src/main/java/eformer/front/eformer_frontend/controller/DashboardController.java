@@ -125,6 +125,10 @@ public class DashboardController implements Initializable {
 
             setNode(home);
         } catch (IOException ignored) {
+            System.out.println(ignored.getCause());
+            System.out.println(ignored.getMessage());
+            System.out.println(ignored);
+            System.exit(1110);
         }
 
     }

@@ -25,6 +25,8 @@ public class Order {
 
     private String note;
 
+    private Double profit;
+
     public Order(User customer, User employee) {
         setCustomer(customer);
         setEmployee(employee);
@@ -32,6 +34,18 @@ public class Order {
 
     public Order(JSONObject json) {
         OrdersConnector.mapToObject(json, this);
+    }
+
+    public Double getProfit() {
+        return profit;
+    }
+
+    public void setProfit(Double profit) {
+        this.profit = profit;
+    }
+
+    public void setProfit(BigDecimal profit) {
+        setProfit(profit.doubleValue());
     }
 
     public Integer getOrderId() {

@@ -19,16 +19,32 @@ public class Item {
 
     private LocalDateTime introductionDate;
 
+    private Double cost;
+
     public Item(JSONObject json) {
         ItemsConnector.mapToObject(json, this);
     }
 
     public Item(String name, String description,
-                Integer quantity, Double unitPrice) {
+                Integer quantity, Double unitPrice,
+                Double cost) {
         setName(name);
         setDescription(description);
         setQuantity(quantity);
         setUnitPrice(unitPrice);
+        setCost(cost);
+    }
+
+    public Double getCost() {
+        return cost;
+    }
+
+    public void setCost(Double cost) {
+        this.cost = cost;
+    }
+
+    public void setCost(BigDecimal cost) {
+        setCost(cost.doubleValue());
     }
 
     public Integer getItemId() {
