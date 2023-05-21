@@ -19,4 +19,6 @@ module eformer.front.eformer_frontend {
 
     exports eformer.front.eformer_frontend;
     exports eformer.front.eformer_frontend.controller;
+    exports eformer.front.eformer_frontend.model;
+    exports eformer.front.eformer_frontend.connector;
 }

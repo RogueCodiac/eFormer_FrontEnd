@@ -1,4 +1,4 @@
-package eformer.front.eformer_frontend.connectors;
+package eformer.front.eformer_frontend.connector;
 
 import eformer.front.eformer_frontend.model.User;
 import org.json.JSONArray;

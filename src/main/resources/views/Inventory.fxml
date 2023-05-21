@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import com.jfoenix.controls.JFXTextArea?>
 <?import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView?>
 <?import java.net.URL?>
 <?import javafx.geometry.Insets?>
@@ -15,10 +16,11 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Region?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane id="AnchorPane" fx:id="acContent" prefHeight="634.0" prefWidth="1256.0" style="-fx-background-color: #EEEEEE;" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1">
+<AnchorPane id="AnchorPane" fx:id="acContent" prefHeight="800.0" prefWidth="1250.0" style="-fx-background-color: #EEEEEE;" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="eformer.front.eformer_frontend.controller.InventoryController">
     <children>
         <BorderPane fx:id="bpRoot" prefHeight="788.0" prefWidth="1384.0" AnchorPane.bottomAnchor="10.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="0.0">
             <center>
@@ -32,11 +34,10 @@
                               <TableColumn fx:id="tblClmCostPrice" prefWidth="118.0" text="Cost" />
                         <TableColumn fx:id="tblClmUnitPrice" prefWidth="154.0" text="Unit Price" />
                               <TableColumn fx:id="tblClmQuantity" prefWidth="145.0" text="Quantity" />
-                              <TableColumn fx:id="tblClmAction" prefWidth="106.0" text="Action" />
                           </columns>
       
                       </TableView>
-                  <AnchorPane fx:id="bpRightAnchor" maxWidth="481.0" prefHeight="689.0" prefWidth="481.0">
+                  <AnchorPane maxWidth="481.0" prefHeight="689.0" prefWidth="481.0">
                      <children>
                         <VBox fillWidth="false" maxWidth="500.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                            <children>
@@ -126,23 +127,21 @@
                     <children>
                         <Label style="-fx-font-size: 20; -fx-font-weight: bold;" text="Inventory" />
                         <Separator prefHeight="4.0" prefWidth="1213.0" />
-                        <HBox alignment="CENTER_RIGHT" prefWidth="743.0" spacing="10.0">
+                        <HBox alignment="CENTER_RIGHT" prefWidth="775.0" spacing="10.0">
                             <children>
-<!--                                <TextField fx:id="tfSearch" onKeyReleased="#tfSearchOnKeyReleased" prefHeight="33.0" prefWidth="405.0" promptText="Search Product ..." />-->
-                                <TextField fx:id="tfSearch" prefHeight="33.0" prefWidth="405.0" promptText="Search Product ..." />
+                        <JFXTextArea fx:id="tfSearch" focusColor="#80008000" labelFloat="true" prefHeight="40.0" prefWidth="405.0">
+                           <HBox.margin>
+                              <Insets bottom="5.0" top="5.0" />
+                           </HBox.margin>
+                        </JFXTextArea>
 
-<!--                        <Button graphicTextGap="8.0" mnemonicParsing="false" onAction="#btnRefreshOnAction" prefWidth="100.0" style="-fx-content-display: left;" styleClass="btnTender" text="Refresh">-->
-                        <Button graphicTextGap="8.0" mnemonicParsing="false" prefWidth="100.0" style="-fx-content-display: left;" styleClass="btnTender" text="Refresh">
+      <!--                        <Button graphicTextGap="8.0" mnemonicParsing="false" onAction="#btnRefreshOnAction" prefWidth="100.0" style="-fx-content-display: left;" styleClass="btnTender" text="Refresh">-->
+                        <Button graphicTextGap="8.0" mnemonicParsing="false" prefHeight="33.0" prefWidth="155.0" style="-fx-content-display: left;" styleClass="btnTender" text="Refresh">
                                 <graphic>
                               <FontAwesomeIconView glyphName="REFRESH" size="15" />
                            </graphic>
                         </Button>
-<!--                        <Button graphicTextGap="8.0" mnemonicParsing="false" onAction="#btnAddItemOnAction" prefWidth="100.0" style="-fx-content-display: left;" styleClass="btnTender" text="Add">-->
-                        <Button graphicTextGap="8.0" mnemonicParsing="false" prefWidth="100.0" style="-fx-content-display: left;" styleClass="btnTender" text="Add">
-                            <graphic>
-                              <FontAwesomeIconView glyphName="PLUS" size="15" />
-                           </graphic>
-                        </Button>
+                        <Region maxWidth="-Infinity" prefHeight="50.0" prefWidth="591.0" />
                             </children>
                      <VBox.margin>
                         <Insets bottom="10.0" />

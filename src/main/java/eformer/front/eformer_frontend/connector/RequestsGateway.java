@@ -1,4 +1,4 @@
-package eformer.front.eformer_frontend.connectors;
+package eformer.front.eformer_frontend.connector;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -11,7 +11,7 @@ import java.net.URL;
 import java.nio.charset.StandardCharsets;
 
 
-class RequestsGateway {
+public class RequestsGateway {
     private final static String urlBase = "http://localhost:8080/api/v1/";
 
     private static String token = null;
@@ -66,7 +66,6 @@ class RequestsGateway {
 
             return processResponse(connection);
         } catch (Exception e) {
-            System.out.println(e);
             return e;
         }
     }
@@ -104,7 +103,7 @@ class RequestsGateway {
         return executePostRequest(target, body, token);
     }
 
-    protected static void authenticate(String username, String password) {
+    public static void authenticate(String username, String password) {
         var body = new JSONObject();
 
         body.put("username", username);
@@ -114,7 +113,7 @@ class RequestsGateway {
         setToken((String) response.get("token"));
     }
 
-    protected static void register(JSONObject body) {
+    public static void register(JSONObject body) {
         var response = (JSONObject) post("auth/register", body);
         setToken((String) response.get("token"));
     }

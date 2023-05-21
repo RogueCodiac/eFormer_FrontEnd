@@ -1,6 +1,6 @@
 package eformer.front.eformer_frontend.model;
 
-import eformer.front.eformer_frontend.connectors.ItemsConnector;
+import eformer.front.eformer_frontend.connector.ItemsConnector;
 import org.json.JSONObject;
 
 import java.math.BigDecimal;

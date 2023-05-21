@@ -1,5 +1,6 @@
 package eformer.front.eformer_frontend;
 
+import eformer.front.eformer_frontend.connector.RequestsGateway;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
@@ -11,6 +12,8 @@ import java.io.IOException;
 public class HelloApplication extends Application {
     @Override
     public void start(Stage stage) throws IOException {
+        RequestsGateway.authenticate("yolo", "ysd112233");
+
         /* Patches the illegalAccess issues of jfoenix */
         org.burningwave.core.assembler.StaticComponentContainer.Modules.exportAllToAll();
 

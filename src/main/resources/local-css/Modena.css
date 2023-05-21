@@ -103,7 +103,7 @@ is being used to size a border should also be in pixels.
      */
     -fx-dark-text-color: black;
     -fx-mid-text-color: #333;
-    -fx-light-text-color: white;
+    -fx-light-text-color: black;
 
     /* A bright blue for highlighting/accenting objects.  For example: selected
      * text; selected items in menus, lists, trees, and tables; progress bars */
@@ -2219,7 +2219,7 @@ is being used to size a border should also be in pixels.
     -fx-padding: 0em 0.333333em 0.0em 0.333333; /* 2 4 3 6 */
 }
 .cell:focused:selected > .choice-box > .label {
-    -fx-text-fill: white;
+    -fx-text-fill: black;
 }
 .cell:focused:selected > .choice-box > .open-button > .arrow {
     -fx-background-color: -fx-mark-highlight-color, white;
@@ -2552,7 +2552,7 @@ is being used to size a border should also be in pixels.
 
 .tooltip {
     -fx-background: rgba(30,30,30);
-    -fx-text-fill: white;
+    -fx-text-fill: black;
     -fx-background-color: rgba(30,30,30,0.8);
     -fx-background-radius: 6px;
     -fx-background-insets: 0;
