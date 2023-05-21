@@ -97,10 +97,8 @@
                                     </TitledPane>
                                     <HBox alignment="CENTER_RIGHT" spacing="10.0">
                                        <children>
-<!--                                          <Button fx:id="btnUpdate" mnemonicParsing="false" onAction="#btnUpdateOnAction" prefHeight="50.0" prefWidth="100.0" styleClass="btnTender" text="Update" />-->
-<!--                                          <Button fx:id="btnCancel" mnemonicParsing="false" onAction="#btnCancelOnAction" prefHeight="50.0" prefWidth="100.0" styleClass="btnTender" text="Cancel" />-->
-                                           <Button fx:id="btnUpdate" mnemonicParsing="false" prefHeight="50.0" prefWidth="100.0" styleClass="btnTender" text="Update" />
-                                           <Button fx:id="btnCancel" mnemonicParsing="false" prefHeight="50.0" prefWidth="100.0" styleClass="btnTender" text="Cancel" />
+                                          <Button fx:id="btnUpdate" mnemonicParsing="false" onAction="#btnUpdateAction" prefHeight="50.0" prefWidth="100.0" styleClass="btnTender" text="Update" />
+                                          <Button fx:id="btnCancel" mnemonicParsing="false" onAction="#btnCancelAction" prefHeight="50.0" prefWidth="100.0" styleClass="btnTender" text="Cancel" />
 
                                        </children>
                                        <VBox.margin>
@@ -135,8 +133,7 @@
                            </HBox.margin>
                         </JFXTextArea>
 
-      <!--                        <Button graphicTextGap="8.0" mnemonicParsing="false" onAction="#btnRefreshOnAction" prefWidth="100.0" style="-fx-content-display: left;" styleClass="btnTender" text="Refresh">-->
-                        <Button graphicTextGap="8.0" mnemonicParsing="false" prefHeight="33.0" prefWidth="155.0" style="-fx-content-display: left;" styleClass="btnTender" text="Refresh">
+                              <Button graphicTextGap="8.0" mnemonicParsing="false" onAction="#refresh" prefWidth="100.0" style="-fx-content-display: left;" styleClass="btnTender" text="Refresh">
                                 <graphic>
                               <FontAwesomeIconView glyphName="REFRESH" size="15" />
                            </graphic>

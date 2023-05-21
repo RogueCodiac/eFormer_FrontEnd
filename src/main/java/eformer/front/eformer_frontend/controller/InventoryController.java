@@ -16,6 +16,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
+import javafx.event.ActionEvent;
 
 import java.net.URL;
 import java.util.Objects;
@@ -104,7 +105,11 @@ public class InventoryController implements Initializable {
         });
     }
 
-    public void refresh() {
+    public void refresh(ActionEvent ignored) {
+        refreshTable();
+    }
+
+    public void refreshTable() {
         items.clear();
         items.addAll(Objects.requireNonNull(ItemsConnector.getAll()));
         clearFields();
@@ -138,11 +143,11 @@ public class InventoryController implements Initializable {
         return new Item(name, description, quantity, unitPrice, cost);
     }
 
-    public void btnCancelAction() {
+    public void btnCancelAction(ActionEvent ignored) {
         setFields(currentSelectedItem);
     }
 
-    public void btnUpdateAction() {
+    public void btnUpdateAction(ActionEvent ignored) {
         var fieldsItem = fetchItemFromFields();
 
         if (currentSelectedItem != null) {
@@ -176,9 +181,7 @@ public class InventoryController implements Initializable {
         tblClmCostPrice.setCellValueFactory(new PropertyValueFactory<>("cost"));
         tblClmUnitPrice.setCellValueFactory(new PropertyValueFactory<>("unitPrice"));
 
-        refresh();
-        btnUpdate.setOnAction(ignored -> btnUpdateAction());
-        btnCancel.setOnAction(ignored -> btnCancelAction());
+        refreshTable();
         activateTableFunctionalities();
     }
 }
