@@ -21,6 +21,8 @@ public class Item {
 
     private Double cost;
 
+    private Integer requestedQuantity = 0;
+
     public Item(JSONObject json) {
         ItemsConnector.mapToObject(json, this);
     }
@@ -33,6 +35,14 @@ public class Item {
         setQuantity(quantity);
         setUnitPrice(unitPrice);
         setCost(cost);
+    }
+
+    public Integer getRequestedQuantity() {
+        return requestedQuantity;
+    }
+
+    public void setRequestedQuantity(Integer requestedQuantity) {
+        this.requestedQuantity = requestedQuantity;
     }
 
     public Double getCost() {

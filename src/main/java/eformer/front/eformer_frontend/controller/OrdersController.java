@@ -148,7 +148,7 @@ public class OrdersController implements Initializable {
         });
     }
 
-    public static Optional<Pair<Item, Integer>> getNewItem() {
+    public Optional<Pair<Item, Integer>> getNewItem() {
         // Create the custom dialog.
         Dialog<Pair<Item, Integer>> dialog = new Dialog<>();
         dialog.setTitle("New Item");
@@ -243,8 +243,22 @@ public class OrdersController implements Initializable {
         return dialog.showAndWait();
     }
 
+    public void displayWarning(String header, String msg) {
+        Alert alert = new Alert(Alert.AlertType.ERROR);
+        alert.setTitle("Error");
+        alert.setHeaderText(header);
+        alert.setContentText(msg);
+
+        alert.showAndWait();
+    }
+
     public void btnAddItemAction(ActionEvent ignored) {
-        System.out.println(getNewItem());
+        if (currentSelectedOrder == null) {
+            displayWarning("No order selected", "Please select an order & try again");
+            return;
+        }
+
+        var item = getNewItem();
     }
 
     private void refreshOrderItems() {
@@ -288,7 +302,7 @@ public class OrdersController implements Initializable {
     public void initialize(URL location, ResourceBundle resources) {
         tblClmItemId.setCellValueFactory(new PropertyValueFactory<>("itemId"));
         tblClmItemName.setCellValueFactory(new PropertyValueFactory<>("name"));
-        tblClmItemQuantity.setCellValueFactory(new PropertyValueFactory<>("quantity"));
+        tblClmItemQuantity.setCellValueFactory(new PropertyValueFactory<>("requestedQuantity"));
         tblClmItemUnitPrice.setCellValueFactory(new PropertyValueFactory<>("unitPrice"));
 
         tblClmOrderId.setCellValueFactory(new PropertyValueFactory<>("orderId"));

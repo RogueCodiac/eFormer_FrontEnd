@@ -237,11 +237,25 @@ public class OrdersConnector extends RequestsGateway {
         }
     }
 
+    public static List<Item> processItems(Object response) {
+        var result = new ArrayList<Item>();
+
+        for (var json: (JSONArray) response) {
+            var values = (JSONArray) json;
+            var item = new Item(values.getJSONObject(0));
+            item.setRequestedQuantity(values.getInt(1));
+
+            result.add(item);
+        }
+
+        return result;
+    }
+
     public static List<Item> getItems(Integer orderId) {
         try {
             var response = post(getUrl("getOrderItems"), orderId);
 
-            return ItemsConnector.proccessItemsList(response);
+            return processItems(response);
         } catch (Exception ignored) {
             return null;
         }
