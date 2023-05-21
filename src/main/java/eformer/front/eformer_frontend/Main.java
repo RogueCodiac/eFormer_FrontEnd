@@ -2,16 +2,24 @@ package eformer.front.eformer_frontend;
 
 import eformer.front.eformer_frontend.connector.RequestsGateway;
 import javafx.application.Application;
-import javafx.event.EventHandler;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
+import javafx.scene.image.Image;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.stage.Stage;
 
+import java.io.File;
 import java.io.IOException;
+import java.util.Objects;
 
 public class Main extends Application {
+    public static Image getImage(String name) {
+        var result = Objects.requireNonNull(Main.class.getResource("/images/" + name)).getPath();
+        var file = new File(result).getAbsolutePath().replace("%20", " ");
+        return new Image(file);
+    }
+
     @Override
     public void start(Stage stage) throws IOException {
         RequestsGateway.authenticate("yolo", "ysd112233");
@@ -29,8 +37,10 @@ public class Main extends Application {
         });
 
         stage.setTitle("eFormer");
-        stage.setFullScreen(true);
         stage.setResizable(true);
+        stage.setMaximized(true);
+        stage.getIcons().clear();
+        stage.getIcons().add(getImage("cart.png"));
         stage.setFullScreenExitHint("");
         stage.setScene(scene);
         stage.show();

@@ -99,7 +99,7 @@
                                         <Insets top="5.0" />
                                     </HBox.margin>
                                     <ImageView fitHeight="50.0" fitWidth="70.0" pickOnBounds="true" preserveRatio="true">
-                                        <Image url="@../images/splash.png" />
+                                        <Image url="@../images/cart.png" />
                                     </ImageView>
                                 </HBox>
                             </HBox>
