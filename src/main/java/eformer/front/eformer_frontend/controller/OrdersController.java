@@ -154,8 +154,11 @@ public class OrdersController implements Initializable {
         dialog.setTitle("New Item");
         dialog.setHeaderText("Add item");
 
-        // Set the icon (must be included in the project).
-        dialog.setGraphic(new ImageView(Main.getImage("cart.png")));
+        var image = new ImageView(Main.getImage("cart.png"));
+        image.setFitHeight(50);
+        image.setFitWidth(50);
+
+        dialog.setGraphic(image);
 
         // Set the button types.
         ButtonType loginButtonType = new ButtonType("Add", ButtonBar.ButtonData.OK_DONE);
@@ -180,7 +183,7 @@ public class OrdersController implements Initializable {
                         if (item == null || empty) {
                             setGraphic(null);
                         } else {
-                            setText(String.format("%s, Up: $%.2f,\nCo $%.2f, Av: %d",
+                            setText(String.format("%s, Price: $%.2f\nCost $%.2f, Quantity: %d",
                                     item.getName(),
                                     item.getUnitPrice(),
                                     item.getCost(),
@@ -216,18 +219,19 @@ public class OrdersController implements Initializable {
         grid.add(new Label("Quantity: "), 0, 1);
         grid.add(cbQuantity, 1, 1);
 
-        // Enable/Disable login button depending on whether a username was entered.
         var confirmButton = dialog.getDialogPane().lookupButton(loginButtonType);
         confirmButton.setDisable(true);
 
-        // Do some validation (using the Java 8 lambda syntax).
         cbItemName.valueProperty().addListener((observable, oldValue, newValue) -> {
-            confirmButton.setDisable(cbItemName.getValue() == null || cbQuantity.getValue() == null);
+            confirmButton.setDisable(cbItemName.getValue() == null);
         });
+
+        cbQuantity.valueProperty().addListener(((observable, oldValue, newValue) -> {
+            confirmButton.setDisable(cbQuantity.getValue() == null);
+        }));
 
         dialog.getDialogPane().setContent(grid);
 
-        // Convert the result to a username-password-pair when the login button is clicked.
         dialog.setResultConverter(dialogButton -> {
             if (dialogButton == loginButtonType) {
                 return new Pair<>(cbItemName.getValue(), cbQuantity.getValue());

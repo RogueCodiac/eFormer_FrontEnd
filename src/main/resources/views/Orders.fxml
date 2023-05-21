@@ -73,7 +73,7 @@
                                  <children>
                                     <VBox>
                                        <children>
-                                          <Button fx:id="btnAddItem" onAction="#" mnemonicParsing="false" prefHeight="23.0" prefWidth="192.0" styleClass="btnTender" text="Add Item">
+                                          <Button fx:id="btnAddItem" onAction="#btnAddItemAction" mnemonicParsing="false" prefHeight="23.0" prefWidth="192.0" styleClass="btnTender" text="Add Item">
                                              <font>
                                                 <Font size="20.0" />
                                              </font>
