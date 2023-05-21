@@ -35,7 +35,7 @@
                                 <FontAwesomeIconView fill="WHITE" glyphName="HOME" size="30" />
                             </graphic>
                         </Button>
-                        <Button fx:id="btnSales" contentDisplay="TOP" mnemonicParsing="false" onAction="#btnSwitchSales" prefWidth="150.0" styleClass="buttonMenu" text="Sales">
+                        <Button fx:id="btnSales" contentDisplay="TOP" mnemonicParsing="false" onAction="#btnSwitchSales" prefWidth="150.0" styleClass="buttonMenu" text="Orders">
                             <graphic>
                                 <ImageView fx:id="imgSellBtn" fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
                                     <effect>

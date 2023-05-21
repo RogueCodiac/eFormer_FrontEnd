@@ -3,8 +3,11 @@ package eformer.front.eformer_frontend.controller;
 import eformer.front.eformer_frontend.Main;
 import eformer.front.eformer_frontend.connector.ItemsConnector;
 import eformer.front.eformer_frontend.connector.OrdersConnector;
+import eformer.front.eformer_frontend.connector.RequestsGateway;
+import eformer.front.eformer_frontend.connector.UsersConnector;
 import eformer.front.eformer_frontend.model.Item;
 import eformer.front.eformer_frontend.model.Order;
+import eformer.front.eformer_frontend.model.User;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -282,6 +285,96 @@ public class OrdersController implements Initializable {
         }
     }
 
+    public Optional<Pair<User, String>> getCustomer() {
+        var cbCustomer = new ComboBox<User>();
+
+        Dialog<Pair<User, String>> dialog = new Dialog<>();
+        dialog.setTitle("New Order");
+        dialog.setHeaderText("Choose customer");
+
+        // Set the button types.
+        ButtonType loginButtonType = new ButtonType("Add", ButtonBar.ButtonData.OK_DONE);
+        dialog.getDialogPane().getButtonTypes().addAll(loginButtonType, ButtonType.CANCEL);
+
+        var image = new ImageView(Main.getImage("cart.png"));
+        image.setFitHeight(50);
+        image.setFitWidth(50);
+
+        dialog.setGraphic(image);
+
+        var cellFactory = new Callback<ListView<User>, ListCell<User>>() {
+            @Override
+            public ListCell<User> call(ListView<User> l) {
+                return new ListCell<>() {
+                    @Override
+                    protected void updateItem(User user, boolean empty) {
+                        super.updateItem(user, empty);
+                        if (user == null || empty) {
+                            setGraphic(null);
+                        } else {
+                            setText(String.format("# %d, %s\n%s",
+                                    user.getUserId(),
+                                    user.getUsername(),
+                                    user.getFullName()
+                            ));
+                        }
+                    }
+                } ;
+            }
+        };
+
+        cbCustomer.setButtonCell(cellFactory.call(null));
+        cbCustomer.setCellFactory(cellFactory);
+
+        ObservableList<User> allCustomers = FXCollections.observableArrayList();
+        allCustomers.setAll(UsersConnector.getCustomers());
+        cbCustomer.setItems(allCustomers);
+
+        TextField note = new TextField();
+        note.setPromptText("(optional)");
+
+        GridPane grid = new GridPane();
+        grid.setHgap(10);
+        grid.setVgap(10);
+        grid.setPadding(new Insets(20, 150, 10, 10));
+
+        grid.add(new Label("Customer: "), 0, 0);
+        grid.add(cbCustomer, 1, 0);
+        grid.add(new Label("Note:"), 0, 1);
+        grid.add(note, 1, 1);
+
+        var confirmButton = dialog.getDialogPane().lookupButton(loginButtonType);
+        confirmButton.setDisable(true);
+
+        cbCustomer.valueProperty().addListener((observable, oldValue, newValue) -> {
+            confirmButton.setDisable(cbCustomer.getValue() == null);
+        });
+
+        dialog.getDialogPane().setContent(grid);
+
+        dialog.setResultConverter(dialogButton -> {
+            if (dialogButton == loginButtonType) {
+                return new Pair<>(cbCustomer.getValue(), note.getText());
+            }
+
+            return null;
+        });
+
+        return dialog.showAndWait();
+    }
+
+    public void btnCreateOrderAction(ActionEvent ignored) {
+        var customer = getCustomer();
+
+        customer.ifPresent(userStringPair -> orders.add(OrdersConnector.create(
+                userStringPair.getKey().getUserId(),
+                new JSONObject(),
+                userStringPair.getValue()))
+        );
+
+        tblOrders.setItems(orders);
+    }
+
     public void btnRemoveItemAction(ActionEvent ignored) {
         if (currentSelectedItem == null) {
             displayWarning("No item selected", "Please select an item & try again");
@@ -344,8 +437,15 @@ public class OrdersController implements Initializable {
             return;
         }
 
-        OrdersConnector.update(currentSelectedOrder.getOrderId(), new JSONObject(items));
-        orders.set(orders.indexOf(currentSelectedOrder), currentSelectedOrder);
+        var itemIds = new JSONObject();
+
+        for (var item: items) {
+            itemIds.put(item.getItemId().toString(), item.getRequestedQuantity());
+        }
+
+        var temp = OrdersConnector.update(currentSelectedOrder.getOrderId(), itemIds);
+        orders.set(orders.indexOf(currentSelectedOrder), temp);
+        currentSelectedOrder = temp;
     }
 
     public void changeTotalToItems() {

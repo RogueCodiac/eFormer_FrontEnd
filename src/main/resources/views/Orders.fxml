@@ -185,7 +185,7 @@
                         </HBox>
                         <HBox alignment="CENTER_RIGHT" spacing="5.0" HBox.hgrow="ALWAYS">
                            <children>
-                              <Button fx:id="btnCreate" mnemonicParsing="false" styleClass="btnTender" text="Create New">
+                              <Button fx:id="btnCreate" onAction="#btnCreateOrderAction" mnemonicParsing="false" styleClass="btnTender" text="Create New">
                                  <HBox.margin>
                                     <Insets right="10.0" />
                                  </HBox.margin>

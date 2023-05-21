@@ -73,6 +73,7 @@ public class RequestsGateway {
 
             return processResponse(connection);
         } catch (Exception e) {
+            System.out.println(e);
             return e;
         }
     }
@@ -108,6 +109,10 @@ public class RequestsGateway {
 
     protected static Object post(String target, Object body) {
         return executePostRequest(target, body, token);
+    }
+
+    public static User getCurrentUser() {
+        return current;
     }
 
     public static void authenticate(String username, String password) {
