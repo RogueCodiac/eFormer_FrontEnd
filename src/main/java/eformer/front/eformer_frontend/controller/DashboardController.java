@@ -29,8 +29,6 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.Node;
 import javafx.scene.control.Label;
-import javafx.scene.input.KeyEvent;
-import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.StackPane;
 import javafx.util.Duration;
@@ -42,7 +40,7 @@ public class DashboardController implements Initializable {
     @FXML
     private StackPane holderPane;
 
-    AnchorPane inventory, employees, orders, customers;
+    AnchorPane inventory, employees, orders, customers ;
 
     @FXML
     private AnchorPane acMain;

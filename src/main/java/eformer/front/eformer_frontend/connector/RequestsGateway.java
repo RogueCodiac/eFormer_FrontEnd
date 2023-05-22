@@ -39,7 +39,7 @@ public class RequestsGateway {
     public static void displayException(Exception ex) {
         Alert alert = new Alert(Alert.AlertType.ERROR);
         alert.setTitle("Exception Dialog");
-        alert.setHeaderText("A fatal error occurred");
+        alert.setHeaderText("An error occurred");
         alert.setContentText(ex.getMessage());
 
         // Create expandable Exception.
@@ -124,7 +124,7 @@ public class RequestsGateway {
 
             return processResponse(connection);
         } catch (Exception e) {
-            displayException(e);
+//            displayException(e);
             return e;
         }
     }
