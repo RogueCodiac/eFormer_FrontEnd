@@ -101,11 +101,6 @@
                                                 <Font size="15.0" />
                                              </font>
                                           </Label>
-                                          <Label alignment="CENTER_RIGHT" text="Change:" wrapText="true">
-                                             <font>
-                                                <Font size="15.0" />
-                                             </font>
-                                          </Label>
                                        </children>
                                     </VBox>
                                     <VBox spacing="2.0">
@@ -117,11 +112,6 @@
                                           </Label>
                                           <Separator />
                                           <Label fx:id="lblAmountPaid" alignment="CENTER_RIGHT" text="0.0" wrapText="true">
-                                             <font>
-                                                <Font size="15.0" />
-                                             </font>
-                                          </Label>
-                                          <Label fx:id="lblBalance" alignment="CENTER_RIGHT" text="0.0" wrapText="true">
                                              <font>
                                                 <Font size="15.0" />
                                              </font>
@@ -217,7 +207,7 @@
                                     <Label text="To:" />
                                     <DatePicker fx:id="dpDateTo" prefWidth="110.0" styleClass="btnTender" />
 <!--                                     <Button fx:id="btnShowRange" mnemonicParsing="false" onAction="#btnShowRnangeOnAction" styleClass="btnTender" text="Show Range" />-->
-                                    <Button fx:id="btnShowRange" onAction="#btnShowRangeAction" mnemonicParsing="false" styleClass="btnTender" text="Show Range" />
+                                    <Button fx:id="btnShowRange" mnemonicParsing="false" onAction="#btnShowRangeAction" styleClass="btnTender" text="Show Range" />
                                  </children>
                                  <HBox.margin>
                                     <Insets right="20.0" />

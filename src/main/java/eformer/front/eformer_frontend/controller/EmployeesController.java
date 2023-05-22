@@ -90,10 +90,9 @@ public class EmployeesController implements Initializable {
     public void activateTableFunctionalities() {
         /* Once a user is selected display its properties */
         tblEmployees.getSelectionModel().selectedItemProperty().addListener((observable, oldSelected, selected) -> {
-            currentSelectedUser = selected;
-
             if (selected != null) {
                 setFields(selected);
+                currentSelectedUser = selected;
             }
         });
 

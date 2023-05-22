@@ -83,10 +83,9 @@ public class InventoryController implements Initializable {
     public void activateTableFunctionalities() {
         /* Once an item is selected display its properties */
         tblInventory.getSelectionModel().selectedItemProperty().addListener((observable, oldSelected, selected) -> {
-            currentSelectedItem = selected;
-
             if (selected != null) {
                 setFields(selected);
+                currentSelectedItem = selected;
             }
         });
 

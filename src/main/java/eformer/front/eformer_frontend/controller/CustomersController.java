@@ -94,10 +94,9 @@ public class CustomersController implements Initializable {
 
         /* Once a user is selected display its properties */
         tblCustomers.getSelectionModel().selectedItemProperty().addListener((observable, oldSelected, selected) -> {
-            currentSelectedUser = selected;
-
             if (selected != null) {
                 setFields(selected);
+                currentSelectedUser = selected;
             }
         });
     }

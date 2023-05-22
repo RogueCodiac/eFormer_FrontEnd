@@ -1,5 +1,17 @@
 @import './Constants.css';
 
+/*.table-view .column-header-background{*/
+/*    -fx-background-color: linear-gradient(to bottom, #ee5500, #ff9900);*/
+/*    -fx-text-fill: white;*/
+/*    !*-fx-background-radius: 7px 7px 0px 0px;*!*/
+/*    !*-fx-background-insets: 0 11px 0 0;*!*/
+/*    !*-fx-padding: 0 0 5px 0;*!*/
+/*}*/
+
+/*.table-view .column-header {*/
+/*    -fx-background-color: linear-gradient(to bottom, #ee5500, #ff9900);*/
+/*    -fx-text-fill: white;*/
+/*}*/
 
 .buttonMenu{
     -fx-background-color:
@@ -160,3 +172,4 @@
     transition-delay: 2s;
     -fx-effect: dropshadow(three-pass-box, -secondary-cm, 10, 0, 0, 0);
 }
+
