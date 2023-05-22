@@ -3,7 +3,6 @@ package eformer.front.eformer_frontend.controller;
 import eformer.front.eformer_frontend.Main;
 import eformer.front.eformer_frontend.connector.ItemsConnector;
 import eformer.front.eformer_frontend.connector.OrdersConnector;
-import eformer.front.eformer_frontend.connector.RequestsGateway;
 import eformer.front.eformer_frontend.connector.UsersConnector;
 import eformer.front.eformer_frontend.model.Item;
 import eformer.front.eformer_frontend.model.Order;
@@ -22,13 +21,10 @@ import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
 import javafx.util.Callback;
 import javafx.util.Pair;
-import org.json.JSONArray;
 import org.json.JSONObject;
 
 import java.net.URL;
-import java.time.LocalDate;
 import java.time.LocalDateTime;
-import java.util.Locale;
 import java.util.Objects;
 import java.util.Optional;
 import java.util.ResourceBundle;
@@ -131,11 +127,11 @@ public class OrdersController implements Initializable {
     private TableView<Order> tblOrders;
 
     @FXML
-    private ComboBox<?> cbFilter;
+    private ComboBox<?> cbFilterCustomer;
 
     // TODO IMPLEMENT
     @FXML
-    private ComboBox<?> cbFilterValue;
+    private ComboBox<?> cbFilterEmployee;
 
     @FXML
     private Label lblActualTotalSales;
@@ -479,6 +475,10 @@ public class OrdersController implements Initializable {
             return;
         }
 
+        recalibrate();
+    }
+
+    public void recalibrate() {
         Double actualTotalSales = 0.0, totalSales = 0.0, profit = 0.0;
         Integer nbItems = 0;
 

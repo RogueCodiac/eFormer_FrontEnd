@@ -369,12 +369,12 @@
                         </HBox>
                         <HBox alignment="CENTER_RIGHT" spacing="5.0" HBox.hgrow="ALWAYS">
                            <children>
-                              <ComboBox fx:id="cbFilter" prefHeight="25.0" prefWidth="178.0" promptText="Filter by" styleClass="btnTender">
+                              <ComboBox fx:id="cbFilterCustomer" prefHeight="25.0" prefWidth="178.0" promptText="Filter customers" styleClass="btnTender">
                                  <HBox.margin>
                                     <Insets right="10.0" />
                                  </HBox.margin>
                               </ComboBox>
-                              <ComboBox fx:id="cbFilterValue" prefHeight="25.0" prefWidth="178.0" promptText="Filter value" styleClass="btnTender">
+                              <ComboBox fx:id="cbFilterEmployee" prefHeight="25.0" prefWidth="178.0" promptText="Filter employees" styleClass="btnTender">
                                  <HBox.margin>
                                     <Insets right="10.0" />
                                  </HBox.margin>
