@@ -18,7 +18,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane id="AnchorPane" fx:id="acMain" onKeyPressed="#acMain" onMouseMoved="#acMainOnMouseMove" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="eformer.front.eformer_frontend.controller.DashboardController">
+<AnchorPane id="AnchorPane" fx:id="acMain" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="eformer.front.eformer_frontend.controller.DashboardController">
     <stylesheets>
         <URL value="@../local-css/Dashboard.css" />
     </stylesheets>
@@ -106,7 +106,7 @@
                                 <padding>
                                     <Insets right="8.0" />
                                 </padding>
-                                <Button fx:id="btnLogout" mnemonicParsing="false" style="-fx-background-color: transparent;" styleClass="ivUserImage">
+                                <Button fx:id="btnLogout" onAction="#logout" mnemonicParsing="false" style="-fx-background-color: transparent;" styleClass="ivUserImage">
                                     <graphic>
                                         <ImageView fitHeight="30.0" fitWidth="50.0" pickOnBounds="true" preserveRatio="true">
                                             <Image url="@../images/lock.png" />

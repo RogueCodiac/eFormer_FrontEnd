@@ -137,15 +137,6 @@ public class User {
 
     @Override
     public String toString() {
-        var temp = new JSONObject(this);
-
-        temp.remove("role");
-        temp.remove("joinDate");
-        temp.remove("customer");
-        temp.remove("employee");
-        temp.remove("manager");
-        temp.remove("guest");
-
-        return temp.toString();
+        return new JSONObject(this).toString();
     }
 }

@@ -16,6 +16,7 @@ import java.util.Objects;
 import java.util.ResourceBundle;
 
 import eformer.front.eformer_frontend.connector.OrdersConnector;
+import eformer.front.eformer_frontend.connector.RequestsGateway;
 import javafx.animation.Animation;
 import javafx.animation.FadeTransition;
 import javafx.animation.KeyFrame;
@@ -37,78 +38,69 @@ import javafx.util.Duration;
 
 /**
  * FXML Controller class
- *
- * @author KwabenaEpic
  */
 public class DashboardController implements Initializable {
-
-    @FXML
-    private Button btnHome;
     @FXML
     private StackPane holderPane;
-    AnchorPane inventory, employees, sales, reports, customers, widgets, controls, stockSummaryAmbient, meterReconciliation, settings;
+
+    AnchorPane inventory, employees, orders, customers;
+
     @FXML
     private AnchorPane acMain;
+
     @FXML
     private AnchorPane acDashBord;
-    @FXML
-    private ImageView imgStoreBtn;
+
     @FXML
     private ImageView imgSellBtn;
+
     @FXML
     private ImageView imgSettingsBtn;
+
     @FXML
     private BorderPane appContent;
+
     @FXML
     private AnchorPane acHead;
-    private Label lblUsrNamePopOver;
-    private Label lblFullName;
-    private Label lblUsrName;
+
+    @FXML
+    private Label staffNameLbl;
+
     @FXML
     private Label lblUserId;
 
     @FXML
-    private ImageView imgAboutBtn1;
-    @FXML
-    private Button btnMeterReconciliation;
-    @FXML
-    private Button btnAbout111;
-    @FXML
-    private ImageView imgAboutBtn111;
+    private Button btnInventory;
 
     @FXML
-    private Button btnInventory;
-    @FXML
     private Button btnEmployees;
-    private ImageView ivUserImage;
-//    private Employee loggedUser;
+
     @FXML
     private Label lblHour;
+
     @FXML
     private Label dateLocal1;
+
     @FXML
     private Label lblMinutes;
+
     @FXML
     private Label dateLocal11;
+
     @FXML
     private Label lblSeconds;
+
     @FXML
     private Label dateLocal;
+
     @FXML
     private Button btnSales;
+
     @FXML
     private Button btnCustomers;
 
-    private Integer currentMonth;
-
-    @FXML
-    private Button btnReports;
-
     @FXML
     private Button btnLogout;
-
-    @FXML
-    private Button btnSettings;
 
     /**
      * Initializes the controller class.
@@ -120,18 +112,14 @@ public class DashboardController implements Initializable {
         try {
             employees = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("/views/Employees.fxml")));
             inventory = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("/views/Inventory.fxml")));
-            sales = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("/views/Orders.fxml")));
+            orders = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("/views/Orders.fxml")));
             customers = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("/views/Customers.fxml")));
-            // TODO clients
-            //            meterReconciliation = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("/views/MeterReconciliation.fxml")));
-//            controls = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("/views/Controls.fxml")));
 
-            setNode(sales);
+            setNode(orders);
         } catch (IOException e) {
             OrdersConnector.displayException(e);
             System.exit(1110);
         }
-
     }
 
     private void disPlayDateTime() {
@@ -144,10 +132,11 @@ public class DashboardController implements Initializable {
             lblHour.setText(String.format("%02d", hour));
             lblMinutes.setText(String.format("%02d", minute));
             lblSeconds.setText(String.format("%02d", second));
-
+            staffNameLbl.setText("Welcome " + RequestsGateway.getCurrentUser().getUsername());
         }),
                 new KeyFrame(Duration.seconds(1))
         );
+
         clock.setCycleCount(Animation.INDEFINITE);
         clock.play();
     }
@@ -156,7 +145,6 @@ public class DashboardController implements Initializable {
         String s;
         Format formatter;
         Date date = new Date();
-        // 29-Jan-02
         formatter = new SimpleDateFormat("dd-MMM-yyyy");
         s = formatter.format(date);
         dateLocal.setText(s);
@@ -179,60 +167,27 @@ public class DashboardController implements Initializable {
     }
 
     @FXML
-    private void btnAboutOnClick(ActionEvent event) {
-    }
-
-    @FXML
-    private void acMain(KeyEvent event) {
-    }
-
-    @FXML
-    private void acMainOnMouseMove(MouseEvent event) {
-    }
-
-//    private void btnCalculatorOnClick(ActionEvent event) {
-//        setNode(calculator);
-//    }
-    @FXML
-    private void btnSwitchHome(ActionEvent event) {
-    }
-
-    private void btnSwitchStockSummaryAmbient(ActionEvent event) {
-        setNode(stockSummaryAmbient);
-    }
-
-    @FXML
-    private void btnSwitchMeterReconciliation(ActionEvent event) {
-//        setNode(meterReconciliation);
-    }
-
-    @FXML
-    private void btnSwitchInventory(ActionEvent event) {
+    private void btnSwitchInventory(ActionEvent ignored) {
         setNode(inventory);
     }
 
     @FXML
-    private void btnSwitchEmployees(ActionEvent event) {
+    private void btnSwitchEmployees(ActionEvent ignored) {
         setNode(employees);
     }
 
     @FXML
-    private void btnSwitchSales(ActionEvent event) {
-        setNode(sales);
+    private void btnSwitchSales(ActionEvent ignored) {
+        setNode(orders);
     }
 
     @FXML
-    private void btnSwitchCustomers(ActionEvent event) {
+    private void btnSwitchCustomers(ActionEvent ignored) {
         setNode(customers);
     }
 
     @FXML
-    private void btnSwitchReports(ActionEvent event) {
-        setNode(reports);
-    }
-
-    @FXML
-    private void btnSettingsOnClick(ActionEvent event) {
-        setNode(settings);
+    private void logout(ActionEvent ignored) {
+        RequestsGateway.logout();
     }
 }

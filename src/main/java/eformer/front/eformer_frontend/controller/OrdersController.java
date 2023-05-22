@@ -34,7 +34,6 @@ import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
 public class OrdersController implements Initializable {
-
     @FXML
     private AnchorPane acContent;
 
@@ -85,6 +84,9 @@ public class OrdersController implements Initializable {
 
     @FXML
     private TableColumn<?, ?> tblClmAmountPaid;
+
+    @FXML
+    private TableColumn<?, ?> tblClmNote;
 
     @FXML
     private TableColumn<?, ?> tblClmOrderStatus;
@@ -579,9 +581,12 @@ public class OrdersController implements Initializable {
         Integer nbItems = 0;
 
         for (var order: orders) {
-            actualTotalSales += order.getAmountPaid();
+            if (order.getStatus().equals("Confirmed")) {
+                actualTotalSales += order.getAmountPaid();
+                profit += order.getProfit();
+            }
+
             totalSales += order.getTotal();
-            profit += order.getProfit();
             nbItems += order.getNumberOfItems();
         }
 
@@ -609,6 +614,7 @@ public class OrdersController implements Initializable {
         if (temp != null) {
             orders.set(orders.indexOf(currentSelectedOrder), temp);
             currentSelectedOrder = temp;
+            recalibrate();
         }
     }
 
@@ -686,6 +692,7 @@ public class OrdersController implements Initializable {
         tblClmProfit.setCellValueFactory(new PropertyValueFactory<>("profit"));
         tblClmTotal.setCellValueFactory(new PropertyValueFactory<>("total"));
         tblClmOrderStatus.setCellValueFactory(new PropertyValueFactory<>("status"));
+        tblClmNote.setCellValueFactory(new PropertyValueFactory<>("note"));
 
         refreshTables();
         activateTableFunctionalities();

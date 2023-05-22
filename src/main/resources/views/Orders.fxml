@@ -38,6 +38,7 @@
                         <TableColumn fx:id="tblClmAmountPaid" prefWidth="145.0" text="Amount Paid" />
                         <TableColumn fx:id="tblClmProfit" prefWidth="145.0" text="Expected Profit" />
                                 <TableColumn fx:id="tblClmTotal" prefWidth="145.0" text="Total" />
+                               <TableColumn fx:id="tblClmNote" prefWidth="145.0" text="Note" />
                             </columns>
                      <columnResizePolicy>
                         <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />

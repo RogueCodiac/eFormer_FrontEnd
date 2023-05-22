@@ -1,5 +1,6 @@
 package eformer.front.eformer_frontend.connector;
 
+import eformer.front.eformer_frontend.controller.DashboardController;
 import eformer.front.eformer_frontend.model.User;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Label;
@@ -191,7 +192,7 @@ public class RequestsGateway {
         }
     }
 
-    protected static void logout() {
+    public static void logout() {
         token = null;
     }
 
