@@ -132,7 +132,10 @@ public class DashboardController implements Initializable {
             lblHour.setText(String.format("%02d", hour));
             lblMinutes.setText(String.format("%02d", minute));
             lblSeconds.setText(String.format("%02d", second));
-            staffNameLbl.setText("Welcome " + RequestsGateway.getCurrentUser().getUsername());
+
+            var username = RequestsGateway.getCurrentUser().getUsername();
+
+            staffNameLbl.setText("Welcome " + (username == null ? "no-name" : username));
         }),
                 new KeyFrame(Duration.seconds(1))
         );
@@ -189,5 +192,6 @@ public class DashboardController implements Initializable {
     @FXML
     private void logout(ActionEvent ignored) {
         RequestsGateway.logout();
+
     }
 }
