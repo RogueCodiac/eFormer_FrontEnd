@@ -123,7 +123,7 @@ public class RequestsGateway {
 
             return processResponse(connection);
         } catch (Exception e) {
-
+            displayException(e);
             return e;
         }
     }

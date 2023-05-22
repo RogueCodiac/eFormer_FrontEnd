@@ -72,8 +72,8 @@ public class OrdersConnector extends RequestsGateway {
         try {
             var body = new JSONObject();
 
-            body.put("customer", customer);
-            body.put("employee", employee);
+            body.put("customer", customer.getUserId());
+            body.put("employee", employee.getUserId());
 
             var response = post(getUrl("getAllByCustomerAndEmployee"),
                     body);

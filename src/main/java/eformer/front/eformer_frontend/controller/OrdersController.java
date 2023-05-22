@@ -21,10 +21,12 @@ import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
 import javafx.util.Callback;
 import javafx.util.Pair;
+import javafx.util.StringConverter;
 import org.json.JSONObject;
 
 import java.net.URL;
 import java.time.LocalDateTime;
+import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
 import java.util.ResourceBundle;
@@ -127,11 +129,10 @@ public class OrdersController implements Initializable {
     private TableView<Order> tblOrders;
 
     @FXML
-    private ComboBox<?> cbFilterCustomer;
+    private ComboBox<User> cbFilterCustomer;
 
-    // TODO IMPLEMENT
     @FXML
-    private ComboBox<?> cbFilterEmployee;
+    private ComboBox<User> cbFilterEmployee;
 
     @FXML
     private Label lblActualTotalSales;
@@ -175,6 +176,76 @@ public class OrdersController implements Initializable {
         tblItems.getSelectionModel().selectedItemProperty().addListener((observable, oldSelected, selected) -> {
             currentSelectedItem = selected;
         });
+
+        var properEmployeeCb = getUserCb(UsersConnector.getEmployees());
+        var properCustomerCb = getUserCb(UsersConnector.getCustomers());
+
+        cbFilterEmployee.setItems(properEmployeeCb.getItems());
+        cbFilterEmployee.setCellFactory(properEmployeeCb.getCellFactory());
+        cbFilterEmployee.setConverter(properEmployeeCb.getConverter());
+
+        cbFilterCustomer.setItems(properCustomerCb.getItems());
+        cbFilterCustomer.setCellFactory(properCustomerCb.getCellFactory());
+        cbFilterCustomer.setConverter(properCustomerCb.getConverter());
+
+        cbFilterEmployee.valueProperty().addListener((options, oldValue, newValue) ->
+                applyFilter(newValue, true));
+
+        cbFilterCustomer.valueProperty().addListener((options, oldValue, newValue) ->
+                applyFilter(newValue, false));
+    }
+
+    public void applyFilter(User user, boolean isEmployee) {
+        dpDateFrom.setValue(null);
+        dpDateTo.setValue(null);
+
+        if (user == null) {
+            if (isEmployee) {
+                var customer = cbFilterCustomer.getValue();
+
+                orders.clear();
+
+                if (customer == null) {
+                    refreshTables();
+                } else {
+                    orders.setAll(OrdersConnector.getAllByCustomer(customer));
+                }
+            } else {
+                var employee = cbFilterEmployee.getValue();
+
+                orders.clear();
+
+                if (employee == null) {
+                    refreshTables();
+                } else {
+                    orders.setAll(OrdersConnector.getAllByEmployee(employee));
+                }
+            }
+        } else {
+            if (isEmployee) {
+                var customer = cbFilterCustomer.getValue();
+
+                orders.clear();
+
+                if (customer == null) {
+                    orders.setAll(OrdersConnector.getAllByEmployee(user));
+                } else {
+                    orders.setAll(OrdersConnector.getAllByCustomerAndEmployee(customer, user));
+                }
+            } else {
+                var employee = cbFilterEmployee.getValue();
+
+                orders.clear();
+
+                if (employee == null) {
+                    orders.setAll(OrdersConnector.getAllByCustomer(user));
+                } else {
+                    orders.setAll(OrdersConnector.getAllByCustomerAndEmployee(user, employee));
+                }
+            }
+        }
+
+        recalibrate();
     }
 
     public Optional<Item> getNewItem() {
@@ -303,22 +374,8 @@ public class OrdersController implements Initializable {
         }
     }
 
-    public Optional<Pair<User, String>> getCustomer() {
-        var cbCustomer = new ComboBox<User>();
-
-        Dialog<Pair<User, String>> dialog = new Dialog<>();
-        dialog.setTitle("New Order");
-        dialog.setHeaderText("Choose customer");
-
-        // Set the button types.
-        ButtonType loginButtonType = new ButtonType("Add", ButtonBar.ButtonData.OK_DONE);
-        dialog.getDialogPane().getButtonTypes().addAll(loginButtonType, ButtonType.CANCEL);
-
-        var image = new ImageView(Main.getImage("cart.png"));
-        image.setFitHeight(50);
-        image.setFitWidth(50);
-
-        dialog.setGraphic(image);
+    public ComboBox<User> getUserCb(List<User> users) {
+        var result = new ComboBox<User>();
 
         var cellFactory = new Callback<ListView<User>, ListCell<User>>() {
             @Override
@@ -341,12 +398,48 @@ public class OrdersController implements Initializable {
             }
         };
 
-        cbCustomer.setButtonCell(cellFactory.call(null));
-        cbCustomer.setCellFactory(cellFactory);
+        result.setConverter(new StringConverter<>() {
+            @Override
+            public String toString(User user) {
+                return String.format("# %d, %s\n%s",
+                        user.getUserId(),
+                        user.getUsername(),
+                        user.getFullName());
+            }
+
+            @Override
+            public User fromString(String string) {
+                return null;
+            }
+        });
+
+        result.setButtonCell(cellFactory.call(null));
+        result.setCellFactory(cellFactory);
 
         ObservableList<User> allCustomers = FXCollections.observableArrayList();
-        allCustomers.setAll(UsersConnector.getCustomers());
-        cbCustomer.setItems(allCustomers);
+        allCustomers.setAll(users);
+        result.setItems(allCustomers);
+        result.getItems().add(null);
+
+        return result;
+    }
+
+    public Optional<Pair<User, String>> getCustomer() {
+        Dialog<Pair<User, String>> dialog = new Dialog<>();
+        dialog.setTitle("New Order");
+        dialog.setHeaderText("Choose customer");
+
+        // Set the button types.
+        ButtonType loginButtonType = new ButtonType("Add", ButtonBar.ButtonData.OK_DONE);
+        dialog.getDialogPane().getButtonTypes().addAll(loginButtonType, ButtonType.CANCEL);
+
+        var image = new ImageView(Main.getImage("cart.png"));
+        image.setFitHeight(50);
+        image.setFitWidth(50);
+
+        dialog.setGraphic(image);
+
+        var cbCustomer = getUserCb(UsersConnector.getCustomers());
 
         TextField note = new TextField();
         note.setPromptText("(optional)");
@@ -452,6 +545,9 @@ public class OrdersController implements Initializable {
     public void btnShowRangeAction(ActionEvent ignored) {
         LocalDateTime start = null, end = null;
 
+        cbFilterCustomer.setValue(null);
+        cbFilterEmployee.setValue(null);
+
         if (dpDateFrom.getValue() != null) {
             start = LocalDateTime.parse(dpDateFrom.getValue().toString() + "T00:00:00");
         }
@@ -552,6 +648,10 @@ public class OrdersController implements Initializable {
         currentSelectedItem = null;
         lblTotal.setText("$0.00");
         lblAmountPaid.setText("$0.00");
+        dpDateTo.setValue(null);
+        dpDateFrom.setValue(null);
+        cbFilterEmployee.setValue(null);
+        cbFilterCustomer.setValue(null);
     }
 
     public void setItems(Order order) {
