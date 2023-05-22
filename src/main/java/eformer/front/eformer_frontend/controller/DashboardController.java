@@ -14,6 +14,8 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.Objects;
 import java.util.ResourceBundle;
+
+import eformer.front.eformer_frontend.connector.OrdersConnector;
 import javafx.animation.Animation;
 import javafx.animation.FadeTransition;
 import javafx.animation.KeyFrame;
@@ -44,7 +46,7 @@ public class DashboardController implements Initializable {
     private Button btnHome;
     @FXML
     private StackPane holderPane;
-    AnchorPane home, inventory, employees, sales, reports, customers, widgets, controls, stockSummaryAmbient, meterReconciliation, settings;
+    AnchorPane inventory, employees, sales, reports, customers, widgets, controls, stockSummaryAmbient, meterReconciliation, settings;
     @FXML
     private AnchorPane acMain;
     @FXML
@@ -96,11 +98,15 @@ public class DashboardController implements Initializable {
     private Button btnSales;
     @FXML
     private Button btnCustomers;
+
     private Integer currentMonth;
+
     @FXML
     private Button btnReports;
+
     @FXML
     private Button btnLogout;
+
     @FXML
     private Button btnSettings;
 
@@ -112,7 +118,6 @@ public class DashboardController implements Initializable {
         disPlayDateTime();
         displayDate();
         try {
-            home = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("/views/Home.fxml")));
             employees = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("/views/Employees.fxml")));
             inventory = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("/views/Inventory.fxml")));
             sales = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("/views/Orders.fxml")));
@@ -121,11 +126,9 @@ public class DashboardController implements Initializable {
             //            meterReconciliation = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("/views/MeterReconciliation.fxml")));
 //            controls = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("/views/Controls.fxml")));
 
-            setNode(home);
-        } catch (IOException ignored) {
-            System.out.println(ignored.getCause());
-            System.out.println(ignored.getMessage());
-            System.out.println(ignored);
+            setNode(sales);
+        } catch (IOException e) {
+            OrdersConnector.displayException(e);
             System.exit(1110);
         }
 
@@ -192,7 +195,6 @@ public class DashboardController implements Initializable {
 //    }
     @FXML
     private void btnSwitchHome(ActionEvent event) {
-        setNode(home);
     }
 
     private void btnSwitchStockSummaryAmbient(ActionEvent event) {

@@ -165,7 +165,7 @@ public class OrdersConnector extends RequestsGateway {
         } catch (Exception ignored) {
             displayWarning("Can't fetch information",
                     "Not signed in or check connection");
-            return null;
+            return 0.0;
         }
     }
 
@@ -184,12 +184,12 @@ public class OrdersConnector extends RequestsGateway {
 
     public static Integer getTotalSoldQuantity() {
         try {
-            return (Integer) post(getUrl("getTotalSoldQuantity"),
-                    null);
+            return Integer.parseInt((String) post(getUrl("getTotalSoldQuantity"),
+                    null));
         } catch (Exception ignored) {
             displayWarning("Can't fetch information",
                     "Not signed in or check connection");
-            return null;
+            return 0;
         }
     }
 
@@ -200,7 +200,7 @@ public class OrdersConnector extends RequestsGateway {
         } catch (Exception ignored) {
             displayWarning("Can't fetch information",
                     "Not signed in or check connection");
-            return null;
+            return 0.0;
         }
     }
 
@@ -211,11 +211,11 @@ public class OrdersConnector extends RequestsGateway {
         } catch (Exception ignored) {
             displayWarning("Can't fetch information",
                     "Not signed in or check connection");
-            return null;
+            return 0.0;
         }
     }
 
-    public static boolean confirm(Integer orderId, Double amountPaid) {
+    public static void confirm(Integer orderId, Double amountPaid) {
         try {
             var body = new JSONObject();
 
@@ -223,22 +223,18 @@ public class OrdersConnector extends RequestsGateway {
             body.put("amountPaid", amountPaid);
 
             post(getUrl("confirm"), body);
-            return true;
         } catch (Exception ignored) {
             displayWarning("Can't fetch information",
                     "Not signed in or check connection");
-            return false;
         }
     }
 
-    public static boolean cancel(Integer orderId) {
+    public static void cancel(Integer orderId) {
         try {
             post(getUrl("cancel"), orderId);
-            return true;
         } catch (Exception ignored) {
             displayWarning("Can't fetch information",
                     "Not signed in or check connection");
-            return false;
         }
     }
 

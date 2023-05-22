@@ -138,6 +138,21 @@ public class OrdersController implements Initializable {
     private ComboBox<?> cbFilterValue;
 
     @FXML
+    private Label lblActualTotalSales;
+
+    @FXML
+    private Label lblNoItems;
+
+    @FXML
+    private Label lblNoOrders;
+
+    @FXML
+    private Label lblProfit;
+
+    @FXML
+    private Label lblTotalSales;
+
+    @FXML
     private Button btnAddItem;
 
     @FXML
@@ -461,7 +476,24 @@ public class OrdersController implements Initializable {
         } else {
             displayWarning("Invalid dates", "Please choose correct dates");
             refreshTables();
+            return;
         }
+
+        Double actualTotalSales = 0.0, totalSales = 0.0, profit = 0.0;
+        Integer nbItems = 0;
+
+        for (var order: orders) {
+            actualTotalSales += order.getAmountPaid();
+            totalSales += order.getTotal();
+            profit += order.getProfit();
+            nbItems += order.getNumberOfItems();
+        }
+
+        lblActualTotalSales.setText(String.format("%.2f", actualTotalSales));
+        lblTotalSales.setText(String.format("%.2f", totalSales));
+        lblProfit.setText(String.format("%.2f", profit));
+        lblNoItems.setText(nbItems.toString());
+        lblNoOrders.setText(orders.size() + "");
     }
 
     public void btnUpdateAction(ActionEvent ignored) {
@@ -507,6 +539,12 @@ public class OrdersController implements Initializable {
         orders.addAll(Objects.requireNonNull(OrdersConnector.getAll()));
         tblOrders.setItems(orders);
         tblItems.setItems(items);
+
+        lblActualTotalSales.setText(String.format("%.2f", OrdersConnector.getTotalActualSales()));
+        lblTotalSales.setText(String.format("%.2f", OrdersConnector.getTotalSales()));
+        lblProfit.setText(String.format("%.2f", OrdersConnector.getTotalProfit()));
+        lblNoItems.setText(OrdersConnector.getTotalSoldQuantity().toString());
+        lblNoOrders.setText(orders.size() + "");
     }
 
     private void clearFields() {

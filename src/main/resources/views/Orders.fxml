@@ -162,6 +162,200 @@
                     <children>
                         <Label style="-fx-font-size: 20; -fx-font-weight: bold;" text="Orders" />
                         <Separator prefHeight="4.0" prefWidth="1213.0" />
+                  <HBox spacing="8.0">
+                     <children>
+                        <AnchorPane style="-fx-background-color: white; -fx-effect: dropshadow(gaussian, rgb(0.0, 0.0, 0.0, 0.15), 6.0, 0.7, 0.0,1.5);">
+                           <children>
+                              <VBox layoutY="14.0" prefHeight="150.0" prefWidth="200.0" AnchorPane.bottomAnchor="10.0" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="20.0">
+                                 <children>
+                                    <Label text="Sales Actual" />
+                                    <HBox alignment="CENTER_LEFT">
+                                       <children>
+                                          <Label text="\$">
+                                             <font>
+                                                <Font size="40.0" />
+                                             </font>
+                                          </Label>
+                                          <Label fx:id="lblActualTotalSales" style="-fx-font-size: 60;" text="0.0">
+                                             <font>
+                                                <Font size="40.0" />
+                                             </font>
+                                          </Label>
+                                       </children>
+                                       <VBox.margin>
+                                          <Insets top="10.0" />
+                                       </VBox.margin>
+                                    </HBox>
+                                    <HBox alignment="CENTER_LEFT">
+                                       <children>
+                                          <Label alignment="CENTER_RIGHT" text="Total">
+                                             <font>
+                                                <Font name="System Bold" size="15.0" />
+                                             </font>
+                                          </Label>
+                                       </children>
+                                    </HBox>
+                                 </children>
+                              </VBox>
+                           </children>
+                        </AnchorPane>
+                        <AnchorPane layoutX="506.0" layoutY="10.0" style="-fx-background-color: white; -fx-effect: dropshadow(gaussian, rgb(0.0, 0.0, 0.0, 0.15), 6.0, 0.7, 0.0,1.5);">
+                           <children>
+                              <VBox layoutY="14.0" prefHeight="150.0" prefWidth="200.0" AnchorPane.bottomAnchor="10.0" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="20.0">
+                                 <children>
+                                    <Label text="Sales" />
+                                    <HBox alignment="CENTER_LEFT">
+                                       <children>
+                                          <HBox>
+                                             <children>
+                                                <Label fx:id="lblTotalSales" style="-fx-font-size: 60;" text="0.0">
+                                                   <font>
+                                                      <Font size="40.0" />
+                                                   </font>
+                                                   <graphic>
+                                                      <Label text="\$">
+                                                         <font>
+                                                            <Font size="40.0" />
+                                                         </font>
+                                                      </Label>
+                                                   </graphic>
+                                                </Label>
+                                             </children>
+                                          </HBox>
+                                       </children>
+                                       <VBox.margin>
+                                          <Insets top="10.0" />
+                                       </VBox.margin>
+                                    </HBox>
+                                    <HBox alignment="CENTER_LEFT">
+                                       <children>
+                                          <Label alignment="CENTER_RIGHT" text="Total">
+                                             <font>
+                                                <Font name="System Bold" size="15.0" />
+                                             </font>
+                                          </Label>
+                                       </children>
+                                    </HBox>
+                                 </children>
+                              </VBox>
+                           </children>
+                        </AnchorPane>
+                        <AnchorPane style="-fx-background-color: white; -fx-effect: dropshadow(gaussian, rgb(0.0, 0.0, 0.0, 0.15), 6.0, 0.7, 0.0,1.5);">
+                           <children>
+                              <VBox layoutY="14.0" prefHeight="150.0" prefWidth="200.0" AnchorPane.bottomAnchor="10.0" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="20.0">
+                                 <children>
+                                    <Label text="Profit" />
+                                    <HBox alignment="CENTER_LEFT">
+                                       <children>
+                                          <HBox>
+                                             <children>
+                                                <Label fx:id="lblProfit" style="-fx-font-size: 60;" text="0.0">
+                                                   <font>
+                                                      <Font size="40.0" />
+                                                   </font>
+                                                   <graphic>
+                                                      <Label text="\$">
+                                                         <font>
+                                                            <Font size="40.0" />
+                                                         </font>
+                                                      </Label>
+                                                   </graphic>
+                                                </Label>
+                                             </children>
+                                          </HBox>
+                                       </children>
+                                       <VBox.margin>
+                                          <Insets top="10.0" />
+                                       </VBox.margin>
+                                    </HBox>
+                                    <HBox alignment="CENTER_LEFT">
+                                       <children>
+                                          <Label alignment="CENTER_RIGHT" text="Total">
+                                             <font>
+                                                <Font name="System Bold" size="15.0" />
+                                             </font>
+                                          </Label>
+                                       </children>
+                                    </HBox>
+                                 </children>
+                              </VBox>
+                           </children>
+                        </AnchorPane>
+                        <AnchorPane style="-fx-background-color: white; -fx-effect: dropshadow(gaussian, rgb(0.0, 0.0, 0.0, 0.15), 6.0, 0.7, 0.0,1.5);">
+                           <children>
+                              <VBox layoutY="14.0" prefHeight="150.0" prefWidth="200.0" AnchorPane.bottomAnchor="10.0" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="20.0">
+                                 <children>
+                                    <Label text="No. Of Items Sold" />
+                                    <HBox alignment="CENTER_LEFT">
+                                       <children>
+                                          <HBox>
+                                             <children>
+                                                <Label fx:id="lblNoItems" style="-fx-font-size: 60;" text="0">
+                                                   <font>
+                                                      <Font size="40.0" />
+                                                   </font>
+                                                </Label>
+                                             </children>
+                                          </HBox>
+                                       </children>
+                                       <VBox.margin>
+                                          <Insets top="10.0" />
+                                       </VBox.margin>
+                                    </HBox>
+                                    <HBox alignment="CENTER_LEFT">
+                                       <children>
+                                          <Label alignment="CENTER_RIGHT" text="Total">
+                                             <font>
+                                                <Font name="System Bold" size="15.0" />
+                                             </font>
+                                          </Label>
+                                       </children>
+                                    </HBox>
+                                 </children>
+                              </VBox>
+                           </children>
+                        </AnchorPane>
+                        <AnchorPane layoutX="754.0" layoutY="10.0" style="-fx-background-color: white; -fx-effect: dropshadow(gaussian, rgb(0.0, 0.0, 0.0, 0.15), 6.0, 0.7, 0.0,1.5);">
+                           <children>
+                              <VBox layoutY="14.0" prefHeight="150.0" prefWidth="200.0" AnchorPane.bottomAnchor="10.0" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="20.0">
+                                 <children>
+                                    <Label text="No. Of Orders" />
+                                    <HBox alignment="CENTER_LEFT">
+                                       <children>
+                                          <HBox>
+                                             <children>
+                                                <Label fx:id="lblNoOrders" style="-fx-font-size: 60;" text="0">
+                                                   <font>
+                                                      <Font size="40.0" />
+                                                   </font>
+                                                </Label>
+                                             </children>
+                                          </HBox>
+                                       </children>
+                                       <VBox.margin>
+                                          <Insets top="10.0" />
+                                       </VBox.margin>
+                                    </HBox>
+                                    <HBox alignment="CENTER_LEFT">
+                                       <children>
+                                          <Label alignment="CENTER_RIGHT" text="Total">
+                                             <font>
+                                                <Font name="System Bold" size="15.0" />
+                                             </font>
+                                          </Label>
+                                       </children>
+                                    </HBox>
+                                 </children>
+                              </VBox>
+                           </children>
+                        </AnchorPane>
+                     </children>
+                  </HBox>
+                  <Separator layoutX="10.0" layoutY="55.0" prefHeight="4.0" prefWidth="1213.0">
+                     <VBox.margin>
+                        <Insets bottom="10.0" top="10.0" />
+                     </VBox.margin>
+                  </Separator>
                         <HBox spacing="10.0">
                             <children>
                         <HBox alignment="CENTER_LEFT" spacing="10.0">
