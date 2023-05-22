@@ -46,7 +46,7 @@ public class Item {
     }
 
     public Double getCost() {
-        return cost;
+        return Math.floor(cost * 100) / 100;
     }
 
     public void setCost(Double cost) {
@@ -90,7 +90,7 @@ public class Item {
     }
 
     public Double getUnitPrice() {
-        return unitPrice;
+        return Math.floor(unitPrice * 100) / 100;
     }
 
     public void setUnitPrice(Double unitPrice) {

@@ -103,6 +103,11 @@ public class CustomersController implements Initializable {
     }
 
     public void setFields(User user) {
+        if (currentSelectedUser == user) {
+            clearFields();
+            return;
+        }
+
         tfEmail.setText(user.getEmail());
         tfFullName.setText(user.getFullName());
         tfUsername.setText(user.getUsername());
@@ -142,7 +147,11 @@ public class CustomersController implements Initializable {
     }
 
     public void btnCancelAction(ActionEvent ignored) {
-        setFields(currentSelectedUser);
+        if (currentSelectedUser == null) {
+            UsersConnector.displayWarning("Invalid action", "No previous customer");
+        } else {
+            setFields(currentSelectedUser);
+        }
     }
 
     public void btnUpdateAction(ActionEvent ignored) {

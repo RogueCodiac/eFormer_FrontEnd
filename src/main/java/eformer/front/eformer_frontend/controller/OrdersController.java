@@ -416,7 +416,7 @@ public class OrdersController implements Initializable {
                 OrdersConnector.confirm(currentSelectedOrder.getOrderId(), amount);
                 refreshTables();
             } catch (Exception ignored2) {
-                displayWarning("An error occured", "Enter a valid amount");
+                displayWarning("An error occurred", "Enter a valid amount");
             }
         }
     }
@@ -444,8 +444,11 @@ public class OrdersController implements Initializable {
         }
 
         var temp = OrdersConnector.update(currentSelectedOrder.getOrderId(), itemIds);
-        orders.set(orders.indexOf(currentSelectedOrder), temp);
-        currentSelectedOrder = temp;
+        
+        if (temp != null) {
+            orders.set(orders.indexOf(currentSelectedOrder), temp);
+            currentSelectedOrder = temp;
+        }
     }
 
     public void changeTotalToItems() {

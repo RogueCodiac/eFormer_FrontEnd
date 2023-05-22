@@ -111,6 +111,11 @@ public class EmployeesController implements Initializable {
     }
 
     public void setFields(User user) {
+        if (fetchUserFromFields() == user) {
+            clearFields();
+            return;
+        }
+
         tfEmail.setText(user.getEmail());
         tfFullName.setText(user.getFullName());
         tfUsername.setText(user.getUsername());

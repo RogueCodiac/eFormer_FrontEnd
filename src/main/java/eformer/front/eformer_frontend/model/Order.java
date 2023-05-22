@@ -57,7 +57,7 @@ public class Order {
     }
 
     public Double getTotal() {
-        return total;
+        return Math.floor(total * 100) / 100;
     }
 
     public void setTotal(Double total) {
@@ -85,7 +85,7 @@ public class Order {
     }
 
     public Double getAmountPaid() {
-        return amountPaid == null ? 0 : amountPaid;
+        return amountPaid == null ? 0 : Math.floor(amountPaid * 100) / 100;
     }
 
     public String getCustomerUsername() {

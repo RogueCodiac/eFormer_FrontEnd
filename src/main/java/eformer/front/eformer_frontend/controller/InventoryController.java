@@ -2,6 +2,7 @@ package eformer.front.eformer_frontend.controller;
 
 import eformer.front.eformer_frontend.Main;
 import eformer.front.eformer_frontend.connector.ItemsConnector;
+import eformer.front.eformer_frontend.connector.OrdersConnector;
 import eformer.front.eformer_frontend.model.Item;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -114,6 +115,11 @@ public class InventoryController implements Initializable {
     }
 
     public void setFields(Item item) {
+        if (currentSelectedItem == item) {
+            clearFields();
+            return;
+        }
+
         tfCostPrice.setText(String.format("$%.2f", item.getCost()));
         tfQuantity.setText(item.getQuantity().toString());
         tfItemName.setText(item.getName());
@@ -147,7 +153,11 @@ public class InventoryController implements Initializable {
     }
 
     public void btnCancelAction(ActionEvent ignored) {
-        setFields(currentSelectedItem);
+        if (currentSelectedItem == null) {
+            OrdersConnector.displayWarning("Invalid action", "No previous item");
+        } else {
+            setFields(currentSelectedItem);
+        }
     }
 
     public void btnUpdateAction(ActionEvent ignored) {
@@ -158,8 +168,10 @@ public class InventoryController implements Initializable {
 
             var item = ItemsConnector.update(fieldsItem);
 
-            items.set(items.indexOf(currentSelectedItem), item);
-            currentSelectedItem = item;
+            if (item != null) {
+                items.set(items.indexOf(currentSelectedItem), item);
+                currentSelectedItem = item;
+            }
         } else {
             var item = ItemsConnector.create(fieldsItem);
             items.add(item);
