@@ -24,6 +24,10 @@ public class Main extends Application {
     public void start(Stage stage) throws IOException {
         RequestsGateway.authenticate("yolo", "ysd112233");
 
+        if (RequestsGateway.getToken() == null) {
+            return;
+        }
+
         /* Patches the illegalAccess issues of jfoenix */
         org.burningwave.core.assembler.StaticComponentContainer.Modules.exportAllToAll();
 

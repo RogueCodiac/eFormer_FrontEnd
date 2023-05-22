@@ -1,12 +1,19 @@
 package eformer.front.eformer_frontend.connector;
 
 import eformer.front.eformer_frontend.model.User;
+import javafx.scene.control.Alert;
+import javafx.scene.control.Label;
+import javafx.scene.control.TextArea;
+import javafx.scene.layout.GridPane;
+import javafx.scene.layout.Priority;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
+import java.io.PrintWriter;
+import java.io.StringWriter;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.nio.charset.StandardCharsets;
@@ -18,6 +25,49 @@ public class RequestsGateway {
     private static String token = null;
 
     private static User current = null;
+
+    public static void displayWarning(String header, String msg) {
+        Alert alert = new Alert(Alert.AlertType.ERROR);
+        alert.setTitle("Error");
+        alert.setHeaderText(header);
+        alert.setContentText(msg);
+
+        alert.showAndWait();
+    }
+
+    public static void displayException(Exception ex) {
+        Alert alert = new Alert(Alert.AlertType.ERROR);
+        alert.setTitle("Exception Dialog");
+        alert.setHeaderText("A fatal error occurred");
+        alert.setContentText(ex.getMessage());
+
+        // Create expandable Exception.
+        StringWriter sw = new StringWriter();
+        PrintWriter pw = new PrintWriter(sw);
+        ex.printStackTrace(pw);
+        String exceptionText = sw.toString();
+
+        Label label = new Label("The exception stacktrace was:");
+
+        TextArea textArea = new TextArea(exceptionText);
+        textArea.setEditable(false);
+        textArea.setWrapText(true);
+
+        textArea.setMaxWidth(Double.MAX_VALUE);
+        textArea.setMaxHeight(Double.MAX_VALUE);
+        GridPane.setVgrow(textArea, Priority.ALWAYS);
+        GridPane.setHgrow(textArea, Priority.ALWAYS);
+
+        GridPane expContent = new GridPane();
+        expContent.setMaxWidth(Double.MAX_VALUE);
+        expContent.add(label, 0, 0);
+        expContent.add(textArea, 0, 1);
+
+        // Set expandable Exception into the dialog pane.
+        alert.getDialogPane().setExpandableContent(expContent);
+
+        alert.showAndWait();
+    }
 
     private static Object processResponse(HttpURLConnection connection) throws Exception {
         var response = new StringBuilder();
@@ -73,7 +123,7 @@ public class RequestsGateway {
 
             return processResponse(connection);
         } catch (Exception e) {
-            System.out.println(e);
+
             return e;
         }
     }
@@ -103,6 +153,7 @@ public class RequestsGateway {
 
             return processResponse(connection);
         } catch (Exception e) {
+            displayException(e);
             return e;
         }
     }
@@ -116,20 +167,28 @@ public class RequestsGateway {
     }
 
     public static void authenticate(String username, String password) {
-        var body = new JSONObject();
+        try {
+            var body = new JSONObject();
 
-        body.put("username", username);
-        body.put("password", password);
+            body.put("username", username);
+            body.put("password", password);
 
-        var response = (JSONObject) post("auth/authenticate", body);
-        setToken((String) response.get("token"));
-        current = UsersConnector.getByUsername(username);
+            var response = (JSONObject) post("auth/authenticate", body);
+            setToken(response.getString("token"));
+            current = UsersConnector.getByUsername(username);
+        } catch (Exception e) {
+            displayException(e);
+        }
     }
 
     public static void register(JSONObject body) {
-        var response = (JSONObject) post("auth/register", body);
-        setToken((String) response.get("token"));
-        current = UsersConnector.getByUsername(body.getString("username"));
+        try {
+            var response = (JSONObject) post("auth/register", body);
+            setToken(response.getString("token"));
+            current = UsersConnector.getByUsername(body.getString("username"));
+        } catch (Exception e) {
+            displayException(e);
+        }
     }
 
     protected static void logout() {

@@ -34,6 +34,8 @@ public class UsersConnector extends RequestsGateway {
 
             return proccessUsersList(response);
         } catch (Exception ignored) {
+            displayWarning("Can't fetch users",
+                    "Invalid date and/or not signed in");
             return null;
         }
     }
@@ -47,6 +49,8 @@ public class UsersConnector extends RequestsGateway {
 
             return proccessUsersList(response);
         } catch (Exception ignored) {
+            displayWarning("Can't fetch users",
+                    "Invalid date and/or not signed in");
             return null;
         }
     }
@@ -60,6 +64,8 @@ public class UsersConnector extends RequestsGateway {
 
             return new User(response);
         } catch (Exception ignored) {
+            displayWarning("Can't create user",
+                    "Invalid user and/or not signed in");
             return null;
         }
     }
@@ -73,6 +79,8 @@ public class UsersConnector extends RequestsGateway {
 
             return new User(response);
         } catch (Exception ignored) {
+            displayWarning("Can't fetch user",
+                    "Invalid username and/or not signed in");
             return null;
         }
     }
@@ -90,6 +98,8 @@ public class UsersConnector extends RequestsGateway {
 
             return response.length() > 0;
         } catch (Exception ignored) {
+            displayWarning("Can't update user",
+                    "Invalid user and/or not signed in");
             return false;
         }
     }
@@ -103,6 +113,8 @@ public class UsersConnector extends RequestsGateway {
 
             return proccessUsersList(response);
         } catch (Exception ignored) {
+            displayWarning("Can't fetch customers",
+                    "Not signed in or check connection");
             return null;
         }
     }
@@ -116,6 +128,8 @@ public class UsersConnector extends RequestsGateway {
 
             return proccessUsersList(response);
         } catch (Exception ignored) {
+            displayWarning("Can't fetch employees",
+                    "Not signed in or check connection");
             return null;
         }
     }
@@ -129,6 +143,8 @@ public class UsersConnector extends RequestsGateway {
 
             return proccessUsersList(response);
         } catch (Exception ignored) {
+            displayWarning("Can't fetch users",
+                    "Not signed in or check connection");
             return null;
         }
     }
@@ -148,6 +164,8 @@ public class UsersConnector extends RequestsGateway {
 
             return result;
         } catch (Exception ignored) {
+            displayWarning("Can't fetch roles",
+                    "Check connection");
             return null;
         }
     }

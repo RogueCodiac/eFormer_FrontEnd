@@ -35,6 +35,8 @@ public class OrdersConnector extends RequestsGateway {
 
             return new Order(response);
         } catch (Exception ignored) {
+            displayWarning("Can't fetch order",
+                    "Invalid ID or/and not signed in");
             return null;
         }
     }
@@ -46,6 +48,8 @@ public class OrdersConnector extends RequestsGateway {
 
             return proccessOrdersList(response);
         } catch (Exception ignored) {
+            displayWarning("Can't fetch orders",
+                    "Invalid customer or/and not signed in");
             return null;
         }
     }
@@ -57,6 +61,8 @@ public class OrdersConnector extends RequestsGateway {
 
             return proccessOrdersList(response);
         } catch (Exception ignored) {
+            displayWarning("Can't fetch orders",
+                    "Invalid employee or/and not signed in");
             return null;
         }
     }
@@ -74,6 +80,10 @@ public class OrdersConnector extends RequestsGateway {
 
             return proccessOrdersList(response);
         } catch (Exception ignored) {
+            displayWarning("Can't fetch orders",
+                    "Invalid customer " +
+                            "or/and employee" +
+                            " or/and not signed in");
             return null;
         }
     }
@@ -85,6 +95,8 @@ public class OrdersConnector extends RequestsGateway {
 
             return proccessOrdersList(response);
         } catch (Exception ignored) {
+            displayWarning("Can't fetch orders",
+                    "Invalid status or/and not signed in");
             return null;
         }
     }
@@ -95,6 +107,8 @@ public class OrdersConnector extends RequestsGateway {
 
             return proccessOrdersList(response);
         } catch (Exception ignored) {
+            displayWarning("Can't fetch orders",
+                    "Not signed in or check connection");
             return null;
         }
     }
@@ -106,6 +120,8 @@ public class OrdersConnector extends RequestsGateway {
 
             return proccessOrdersList(response);
         } catch (Exception ignored) {
+            displayWarning("Can't fetch orders",
+                    "Invalid date or/and not signed in");
             return null;
         }
     }
@@ -117,6 +133,8 @@ public class OrdersConnector extends RequestsGateway {
 
             return proccessOrdersList(response);
         } catch (Exception ignored) {
+            displayWarning("Can't fetch orders",
+                    "Invalid date or/and not signed in");
             return null;
         }
     }
@@ -134,6 +152,8 @@ public class OrdersConnector extends RequestsGateway {
 
             return proccessOrdersList(response);
         } catch (Exception ignored) {
+            displayWarning("Can't fetch orders",
+                    "Invalid date or/and not signed in");
             return null;
         }
     }
@@ -143,6 +163,8 @@ public class OrdersConnector extends RequestsGateway {
             return Double.parseDouble((String) post(getUrl("getTotalSales"),
                     null));
         } catch (Exception ignored) {
+            displayWarning("Can't fetch information",
+                    "Not signed in or check connection");
             return null;
         }
     }
@@ -154,6 +176,8 @@ public class OrdersConnector extends RequestsGateway {
 
             return proccessOrdersList(response);
         } catch (Exception ignored) {
+            displayWarning("Can't fetch information",
+                    "Not signed in or check connection");
             return null;
         }
     }
@@ -163,6 +187,8 @@ public class OrdersConnector extends RequestsGateway {
             return (Integer) post(getUrl("getTotalSoldQuantity"),
                     null);
         } catch (Exception ignored) {
+            displayWarning("Can't fetch information",
+                    "Not signed in or check connection");
             return null;
         }
     }
@@ -172,6 +198,8 @@ public class OrdersConnector extends RequestsGateway {
             return Double.parseDouble((String) post(getUrl("getTotalActualSales"),
                     null));
         } catch (Exception ignored) {
+            displayWarning("Can't fetch information",
+                    "Not signed in or check connection");
             return null;
         }
     }
@@ -181,6 +209,8 @@ public class OrdersConnector extends RequestsGateway {
             return Double.parseDouble((String) post(getUrl("getTotalProfit"),
                     null));
         } catch (Exception ignored) {
+            displayWarning("Can't fetch information",
+                    "Not signed in or check connection");
             return null;
         }
     }
@@ -195,6 +225,8 @@ public class OrdersConnector extends RequestsGateway {
             post(getUrl("confirm"), body);
             return true;
         } catch (Exception ignored) {
+            displayWarning("Can't fetch information",
+                    "Not signed in or check connection");
             return false;
         }
     }
@@ -204,6 +236,8 @@ public class OrdersConnector extends RequestsGateway {
             post(getUrl("cancel"), orderId);
             return true;
         } catch (Exception ignored) {
+            displayWarning("Can't fetch information",
+                    "Not signed in or check connection");
             return false;
         }
     }
@@ -215,6 +249,8 @@ public class OrdersConnector extends RequestsGateway {
 
             return new Order(response);
         } catch (Exception ignored) {
+            displayWarning("Can't update order",
+                    "Invalid order or/and not signed in");
             return null;
         }
     }
@@ -233,6 +269,8 @@ public class OrdersConnector extends RequestsGateway {
 
             return new Order(response);
         } catch (Exception ignored) {
+            displayWarning("Can't create order",
+                    "Invalid order or/and not signed in");
             return null;
         }
     }
@@ -257,6 +295,8 @@ public class OrdersConnector extends RequestsGateway {
 
             return processItems(response);
         } catch (Exception ignored) {
+            displayWarning("Can't get order items",
+                    "Invalid order or/and not signed in");
             return null;
         }
     }

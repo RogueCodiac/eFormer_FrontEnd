@@ -24,6 +24,8 @@ public class ItemsConnector extends RequestsGateway {
 
             return new Item(response);
         } catch (Exception ignored) {
+            displayWarning("Can't fetch item",
+                    "Invalid ID");
             return null;
         }
     }
@@ -42,7 +44,7 @@ public class ItemsConnector extends RequestsGateway {
         return result;
     }
 
-    public static Item getItemById(String name) {
+    public static Item getItemByName(String name) {
         try {
             var params = new JSONObject();
 
@@ -55,6 +57,8 @@ public class ItemsConnector extends RequestsGateway {
 
             return new Item(response);
         } catch (Exception ignored) {
+            displayWarning("Can't fetch item",
+                    "Invalid name");
             return null;
         }
     }
@@ -68,6 +72,8 @@ public class ItemsConnector extends RequestsGateway {
 
             return proccessItemsList(response);
         } catch (Exception ignored) {
+            displayWarning("Can't fetch items",
+                    "Check your connection");
             return null;
         }
     }
@@ -81,6 +87,8 @@ public class ItemsConnector extends RequestsGateway {
 
             return new Item(response);
         } catch (Exception ignored) {
+            displayWarning("Can't create item",
+                    "Invalid Item and/or not signed in");
             return null;
         }
     }
@@ -98,6 +106,8 @@ public class ItemsConnector extends RequestsGateway {
 
             return proccessItemsList(response);
         } catch (Exception ignored) {
+            displayWarning("Can't fetch items",
+                    "Invalid date or check connection");
             return null;
         }
     }
@@ -111,6 +121,8 @@ public class ItemsConnector extends RequestsGateway {
 
             return proccessItemsList(response);
         } catch (Exception ignored) {
+            displayWarning("Can't fetch items",
+                    "Invalid date or check connection");
             return null;
         }
     }
@@ -124,6 +136,8 @@ public class ItemsConnector extends RequestsGateway {
 
             return new Item(response);
         } catch (Exception ignored) {
+            displayWarning("Can't update item",
+                    "Invalid item and/or not signed in");
             return null;
         }
     }
