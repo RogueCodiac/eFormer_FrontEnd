@@ -37,7 +37,7 @@
 
 .scroll-pane {
     -fx-padding: 0;
-    -fx-background: -main-c1;
+    -fx-background: white;
 }
 
 .list-view .scroll-bar:horizontal .track,
