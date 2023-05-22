@@ -26,6 +26,9 @@ import org.json.JSONArray;
 import org.json.JSONObject;
 
 import java.net.URL;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.util.Locale;
 import java.util.Objects;
 import java.util.Optional;
 import java.util.ResourceBundle;
@@ -128,7 +131,11 @@ public class OrdersController implements Initializable {
     private TableView<Order> tblOrders;
 
     @FXML
-    private TextField tfSearch;
+    private ComboBox<?> cbFilter;
+
+    // TODO IMPLEMENT
+    @FXML
+    private ComboBox<?> cbFilterValue;
 
     @FXML
     private Button btnAddItem;
@@ -431,6 +438,32 @@ public class OrdersController implements Initializable {
         currentSelectedItem = null;
     }
 
+    public void btnShowRangeAction(ActionEvent ignored) {
+        LocalDateTime start = null, end = null;
+
+        if (dpDateFrom.getValue() != null) {
+            start = LocalDateTime.parse(dpDateFrom.getValue().toString() + "T00:00:00");
+        }
+
+        if (dpDateTo.getValue() != null) {
+            end = LocalDateTime.parse(dpDateTo.getValue().toString() + "T00:00:00");
+        }
+
+        if (start != null && end != null && end.isAfter(start)) {
+            orders.clear();
+            orders.setAll(OrdersConnector.getAllBetween(start, end));
+        } else if (start == null && end != null) {
+            orders.clear();
+            orders.setAll(OrdersConnector.getAllBeforeDate(end));
+        } else if (end == null && start != null && LocalDateTime.now().isAfter(start)) {
+            orders.clear();
+            orders.setAll(OrdersConnector.getAllAfterDate(start));
+        } else {
+            displayWarning("Invalid dates", "Please choose correct dates");
+            refreshTables();
+        }
+    }
+
     public void btnUpdateAction(ActionEvent ignored) {
         if (currentSelectedOrder == null) {
             displayWarning("No order selected", "Please select an order & try again");
@@ -444,7 +477,7 @@ public class OrdersController implements Initializable {
         }
 
         var temp = OrdersConnector.update(currentSelectedOrder.getOrderId(), itemIds);
-        
+
         if (temp != null) {
             orders.set(orders.indexOf(currentSelectedOrder), temp);
             currentSelectedOrder = temp;
