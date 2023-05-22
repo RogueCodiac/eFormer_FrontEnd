@@ -10,10 +10,7 @@ import java.io.IOException;
 import java.net.URL;
 import java.text.Format;
 import java.text.SimpleDateFormat;
-import java.util.Calendar;
-import java.util.Date;
-import java.util.Objects;
-import java.util.ResourceBundle;
+import java.util.*;
 
 import eformer.front.eformer_frontend.connector.OrdersConnector;
 import eformer.front.eformer_frontend.connector.RequestsGateway;
@@ -25,7 +22,9 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
+import javafx.scene.control.ButtonType;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.Node;
@@ -191,7 +190,17 @@ public class DashboardController implements Initializable {
 
     @FXML
     private void logout(ActionEvent ignored) {
-        RequestsGateway.logout();
+        Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+        alert.setTitle("Confirmation");
+        alert.setHeaderText("Are you sure you want to logout?");
+        alert.setContentText("This action will close the application & " +
+                "require you to reauthenticate\n." +
+                "Any unsaved changes will be lost.");
 
+        Optional<ButtonType> result = alert.showAndWait();
+        if (result.isPresent() && result.get() == ButtonType.OK) {
+            RequestsGateway.logout();
+            System.exit(0);
+        }
     }
 }

@@ -5,6 +5,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
@@ -74,11 +75,21 @@ public class Splash {
         //lambda code sourced from StackOverflow, fades away stage
         seqT.setNode(rect);
         //The text part
-        Label label = new Label("eFormer");
-        label.setFont(new Font("Verdana", 40));
-        label.setStyle("-fx-text-fill:#ff9900");
-        label.setLayoutX(140);
-        label.setLayoutY(70);
+
+        var hbox = new HBox();
+
+        Label label0 = new Label("e");
+        label0.setFont(new Font("Verdana", 40));
+        label0.setStyle("-fx-text-fill:white");
+
+        Label label1 = new Label("Former");
+        label1.setFont(new Font("Verdana", 40));
+        label1.setStyle("-fx-text-fill:#ff9900");
+
+        hbox.getChildren().addAll(label0, label1);
+        hbox.setLayoutX(140);
+        hbox.setLayoutY(70);
+
         Label lab = new Label("Launching...");
         lab.setFont(new Font("Times New Roman", 15));
         lab.setStyle("-fx-text-fill:white");
@@ -86,7 +97,7 @@ public class Splash {
         lab.setLayoutY(180);
         //A complimentary image
 
-        var temp = new Pane(rect, label, lab);
+        var temp = new Pane(rect, hbox, lab);
 
         //now adding everything to position, opening the stage, start the animation
         pane.getChildren().add(temp);
