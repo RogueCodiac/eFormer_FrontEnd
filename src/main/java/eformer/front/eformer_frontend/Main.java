@@ -1,6 +1,5 @@
 package eformer.front.eformer_frontend;
 
-import eformer.front.eformer_frontend.connector.ItemsConnector;
 import eformer.front.eformer_frontend.connector.RequestsGateway;
 import javafx.animation.KeyFrame;
 import javafx.animation.KeyValue;
@@ -28,9 +27,7 @@ import java.util.Optional;
 
 public class Main extends Application {
     public static Image getImage(String name) {
-        var result = Objects.requireNonNull(Main.class.getResource("/images/" + name)).getPath();
-        var file = new File(result).getAbsolutePath().replace("%20", " ");
-        return new Image(file);
+        return new Image(Objects.requireNonNull(Main.class.getResource("/images/" + name)).toString());
     }
 
     @Override
@@ -43,8 +40,8 @@ public class Main extends Application {
         while (result.isEmpty()) {
             // Create the custom dialog.
             Dialog<Pair<String, String>> dialog = new Dialog<>();
-            dialog.setTitle("Login Dialog");
-            dialog.setHeaderText("Look, a Custom Login Dialog");
+            dialog.setTitle("Login");
+            dialog.setHeaderText("Welcome!");
 
             // Set the icon (must be included in the project).
             var image = new ImageView(Objects.requireNonNull(Main.class.getResource("/images/login.png")).toString());
